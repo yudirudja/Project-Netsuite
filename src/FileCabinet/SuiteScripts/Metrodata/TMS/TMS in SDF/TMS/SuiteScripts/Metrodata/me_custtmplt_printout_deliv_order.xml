@@ -1,0 +1,372 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd"> 
+<pdf>
+    <head>
+        <#assign datenows = .now?date>
+        <#assign timenows = .now?time>
+        <link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+        <#if .locale == "zh_CN">
+            <link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+        <#elseif .locale == "zh_TW">
+            <link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+        <#elseif .locale == "ja_JP">
+            <link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+        <#elseif .locale == "ko_KR">
+            <link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+        <#elseif .locale == "th_TH">
+            <link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+        </#if>
+        <macrolist>
+            <macro id="nlheader">
+                
+                <table class="header_border" style="width: 100%;margin-top:0px;padding-top:0px">
+                  <tr>
+                        <td align="right">
+                            <pagenumber/> of <totalpages/>
+                        </td>
+                  </tr>
+                </table>
+
+            </macro>
+            <macro id="nlfooter">
+                <table class="footer" style="width: 100%; margin-top:20px;">
+                  <tr>
+                    <td colspan="2" align="center">
+                      <img style="width:80%; height:80%" src="http://9593402-sb1.shop.netsuite.com/core/media/media.nl?id=680&amp;c=9593402_SB1&amp;h=SvdlJXlp_xidJCefAZLuFRaLgRr1IG7jsXLxDh2GbTCvP-fh"/>
+                      <p align="right" style="width: 100%">
+                        <pagenumber/> of <totalpages/>
+                      </p>
+                    </td>
+                  </tr>
+              </table>
+            </macro>
+        </macrolist>
+        <style type="text/css">* {
+            <#if .locale == "zh_CN">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "zh_TW">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "ja_JP">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "ko_KR">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "th_TH">
+                font-family: Arial, sans-serif;
+            <#else>
+                font-family: Arial, sans-serif;
+            </#if>
+            }
+            * {
+                font-size: 9pt
+            }
+            table {
+                font-size: 9pt;
+                table-layout: fixed;
+            }
+            th {
+                font-weight: bold;
+                font-size: 8pt;
+                vertical-align: middle;
+                color: #333333;
+            }
+            td p { align:left }
+            
+            table.header td {
+                padding: 0px;
+                font-size: 10pt;
+            }
+            table.header_border {
+                padding: 0px;
+                vertical-align: top;
+            }
+            table.header tr:last-child{
+                page-break-after: auto;
+            }
+
+            table.content th {
+                border-top: 1px solid;
+                border-bottom: 1px solid;
+                border-left: 1px solid;
+                padding: 1px
+            }
+            table.content th:first-child {
+                border-left: none;
+            }
+            table.content td {
+                border-left: 1px solid;
+                page-break-inside: auto;
+                box-decoration-break: clone;
+            }
+            <!-- table.content tr {
+                page-break-after: auto;
+            } -->
+            table.content td:first-child {
+                border-left: none;
+            }
+
+            table.tandatangan tr:first-child{
+                page-break-after: avoid;
+                page-break-before: auto;
+            }
+            table.tandatangan tr{
+                page-break-after: avoid;
+                page-break-before: avoid;
+            }
+            table.tandatangan tr:last-child{
+                page-break-after: auto;
+                page-break-before: avoid;
+            }
+            table.header_kop {
+                border-collapse: collapse;
+            }
+                
+        </style>
+    </head>
+    <body header="nlheader"  header-height="10%"  padding="0.1in 0.5in 0.1in 0.5in" size="letter">
+        <table class="header_kop" width="100%" style="margin-bottom: 10px;">
+            <tr>
+                <th width="30%" rowspan="2" style="border-right: 1px solid; padding-left: 2px; border-left: none; border-top: 1px solid; border-bottom: 1px solid; padding-top: 10px; padding-bottom:10px">
+                    <p style="margin: 0"> Office & Factory </p>
+                    <p style="margin: 0"> Jl. Daan Mogot Km 16 </p>
+                    <p style="margin: 0"> JAKARTA BARAT </p>
+                    <p style="margin: 0"> Phone   : 6190127 (Hunting) </p>
+                    <p style="margin: 0"> Fax     : 6190135 </p>
+                </th>
+                <th colspan="2" align="center" style="border-right: 1px solid; border-top: 1px solid; padding-top: 10px"> 
+                    <p align="center"> <b> DELIVERY ORDER </b> </p>
+                </th>
+                <th width="30%" rowspan="2"  style="border-right: none; border-top: 1px solid; border-bottom: 1px solid; padding-top: 10px; padding-bottom:10px">
+                    <p style="margin: 0"> Distributor: </p>
+                    <p style="margin: 0"> PT SETIA SAPTA </p>
+                    <p style="margin: 0"> Jl. Gajah Mada 184 </p>
+                    <p style="margin: 0"> JAKARTA </p>
+                    <p style="margin: 0"> Phone  : 6296208, Fax 6297861 </p>
+                </th>
+            </tr>
+            <tr>
+                <th align="left" style="vertical-align: center; border-bottom: 1px solid; font-size: 10pt;padding-bottom:10px"> 
+                    <span align="left"  style="padding-bottom: 0, margin-bottom: 0; font-size: 10pt"> No: ${record.no_do} </span>
+                </th>
+                <th align="left" style="border-right: 1px solid; vertical-align: center; border-bottom: 1px solid; font-size: 10pt; padding-bottom:10px">
+                    <span align="right"  style="padding-bottom: 0, margin-bottom: 0; font-size: 10pt"> Date: ${record.date_do} </span>
+                </th>
+            </tr>
+
+        </table>
+        <table class="header" width="100%">
+            <tr>
+                <td width="18%" >
+                    <p align="left"> Please Deliver To </p>
+                </td>
+                <td width="2%">:</td>
+                <td width="28%" >
+                    <p align="left"> ${record.customer_do} </p>
+                </td>
+                <td width="2%"></td>
+                <td width="18%" >
+                    <p align="left"> Purchase Order </p>
+                </td>
+                <td width="2%">:</td>
+                <td width="28%" >
+                    <p align="left"> ${record.po_do} </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p align="left"> Address </p>
+                </td>
+                <td>:</td>
+                <td>
+                    <p align="left"> ${record.address_do} </p>
+                </td>
+                <td></td>
+                <td>
+                    <p align="left"> Date </p>
+                </td>
+                <td>:</td>
+                <td>
+                    <p align="left"> ${record.po_date_do} </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p align="left"> Transporter </p>
+                </td>
+                <td>:</td>
+                <td>
+                    <p align="left"> ${record.transporter_do} </p>
+                </td>
+                <td></td>
+                <td>
+                    <p align="left"> Driver & Truck No </p>
+                </td>
+                <td>:</td>
+                <td>
+                    <p align="left"> ${record.driver_truck} </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p align="left"> Container No. </p>
+                </td>
+                <td>:</td>
+                <td>
+                    <p align="left"> ${record.container} </p>
+                </td>
+                <td></td>
+                <td>
+                    <p align="left"> Vessel </p>
+                </td>
+                <td>:</td>
+                <td>
+                    <p align="left"> ${record.ekspedisi} </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p align="left"> Seal No. </p>
+                </td>
+                <td>:</td>
+                <td>
+                    <p align="left"> ${record.seal_num} </p>
+                </td>
+                <td></td>
+                <td>
+                    <p align="left">  </p>
+                </td>
+                <td></td>
+                <td>
+                    <p align="left">  </p>
+                </td>
+            </tr>
+
+        </table>
+
+        <table class="content" width="100%" style= "margin-top:10px">
+            <thead>
+                <tr>
+                    <th rowspan="2" width="25%"> <p align="center"> Description Of Goods </p></th>
+                    <th rowspan="2"> <p align="center"> Unit Quantity </p> </th>
+                    <th rowspan="2" width="28%"> <p align="center">Coils/Basket/Box/Spool No. </p></th>
+                    <th colspan="2"><p align="center"> Weight Kgs </p></th>
+                    <th rowspan="2" width="17%"><p align="center"> Notes </p></th>
+                </tr>
+                <tr>
+                    <th align="center" style = "border-top: none; border-left: 1px solid;"> Bruto </th>
+                    <th align="center" style = "border-top: none;"> Netto </th>
+                </tr>
+            </thead>
+            <tbody>
+                <#list record.data_items as item>
+                    <#list item.detail_lot as lot>
+                    <#if item_index gt 0 && lot_index == 0>
+                        <tr style="border-top: 1px solid;">
+                    <#else>
+                        <tr>
+                    </#if>
+                            <#if lot_index == 0>
+                                    <td rowspan="${item.detail_lot?size}" style="padding-top: 0px; padding-bottom:0px"> ${item.item_name} </td>
+                                    <td align="center" rowspan="${item.detail_lot?size}"> ${item.total_coil} ${item.item_unit_name} </td>
+                            </#if>
+                            <td style="border-left: 1px solid; padding-top: 0px; padding-bottom:0px"> 
+                                ${lot.item_lot_name}
+                            </td>  
+                            <td align="center" style="padding-top: 0px; padding-bottom:0px"> 
+                                ${(lot.qty_bruto?number)?string[",##0"]}
+                            </td>  
+                            <td align="center" style="padding-top: 0px; padding-bottom:0px"> 
+                                ${(lot.qty_netto?number)?string[",##0"]}
+                            </td>  
+                            <#if lot_index == 0 && item_index == 0>
+                                <td align="left" rowspan="${item.detail_lot?size}" style="padding-top: 0px; padding-bottom:0px"> ${record.memo} </td>
+                            
+                            </#if>
+                        </tr>
+                    </#list>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td style="margin: 0px 0px 0px 0px; border-top: 1px dotted; font-weight: bold; width: 100%;"> ${(item.total_coil?number)?string[",##0"]}  ${item.item_unit_name} </td>
+                        <td align="center" style="margin: 0px 0px 0px 0px; border-top: 1px dotted; font-weight: bold; width: 100%;"> ${(item.total_bruto?number)?string[",##0"]} </td>
+                        <td align="center" style="margin: 0px 0px 0px 0px; border-top: 1px dotted; font-weight: bold; width: 100%;"> ${(item.total_netto?number)?string[",##0"]} </td>
+                        <td></td>
+                    </tr>
+                </#list>
+                <tr>
+                    <td colspan="6" style = "border-top: 1px solid; padding: 10px 0px; border-bottom: none;"> 
+                        <b> Netto: ${record.terbilang?upper_case} KGS </b>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr style = "border-top: 1px solid">
+                    <td colspan="6"></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <table class="tandatangan" width="100%">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td width="10.5%"></td>
+                <td width="2%"></td>
+                <td width="25%"></td>
+            </tr>
+            <tr> 
+                <td colspan="6" align="center" style=" border-bottom: 1px solid"><b> Signature</b> </td>
+            </tr>
+            <tr>
+                <td colspan="3" align="center"> Prepared By </td>
+                <td colspan="3" align="center" style="border-left: 1px solid"> Received By </td>
+            </tr>
+            <tr>
+                <td colspan="3" align="center"></td>
+                <td align="left" style="border-left: 1px solid"> Date</td>
+                <td align="left"> : </td>
+                <td align="center"></td>
+            </tr>
+            <tr>
+                <td colspan="3" align="center"></td>
+                <td align="left" style="border-left: 1px solid"> Time Arrival</td>
+                <td align="left"> : </td>
+                <td align="center"></td>
+            </tr>
+            <tr>
+                <td colspan="3" align="center"></td>
+                <td align="left" style="border-left: 1px solid"> Time Finished Unloaded</td>
+                <td align="left"> : </td>
+                <td align="center"></td>
+            </tr>
+            <tr>
+                <td align="center" style="border-top: 1px solid;">Delivery Section</td>
+                <td align="center"></td>
+                <td align="center" style="border-top: 1px solid;"> <p style="text-align: center"> Finished Product Section </p></td>
+                <td colspan="3" style="border-left: 1px solid"></td>
+            </tr>
+            <tr>
+                <td colspan="3" align="center"></td>
+                <td colspan="3" align="center" style="border-left: 1px solid"></td>
+            </tr>
+            <tr>
+                <td align="center"></td>
+                <td align="center">Approved By:</td>
+                <td align="center"></td>
+                <td colspan="3" align="center" style="border-left: 1px solid"> 
+                        <p style="margin-top: 20px">(....................)</p> 
+                        <p> Stamp & Signature</p>
+                </td>
+            </tr>
+            <tr>
+                <td align="center"></td>
+                <td align="center" style="border-top: 1px solid; margin-top: 40px" >Sales Manager:</td>
+                <td align="center"></td>
+                <td colspan="3" align="left" style="border-left: 1px solid">
+                    <p style="margin-top:30px;"> 
+                        ** if this column was signed, it means the goods were received completely
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </body> 
+</pdf>

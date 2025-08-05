@@ -1,0 +1,238 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+<head>
+	<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+	<#if .locale == "zh_CN">
+		<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+	<#elseif .locale == "zh_TW">
+		<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+	<#elseif .locale == "ja_JP">
+		<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+	<#elseif .locale == "ko_KR">
+		<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+	<#elseif .locale == "th_TH">
+		<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+	</#if>
+    <style type="text/css">* {
+						<#if .locale == "zh_CN">
+							font-family: NotoSans, NotoSansCJKsc, sans-serif;
+						<#elseif .locale == "zh_TW">
+							font-family: NotoSans, NotoSansCJKtc, sans-serif;
+						<#elseif .locale == "ja_JP">
+							font-family: NotoSans, NotoSansCJKjp, sans-serif;
+						<#elseif .locale == "ko_KR">
+							font-family: NotoSans, NotoSansCJKkr, sans-serif;
+						<#elseif .locale == "th_TH">
+							font-family: NotoSans, NotoSansThai, sans-serif;
+						<#else>
+							font-family: NotoSans, sans-serif;
+						</#if>
+					}
+					td p { align:left }
+
+      .content{
+        border-bottom:1px;
+        margin-top: 50px;
+      }
+      thead{
+        border-bottom:1px;
+        border-top:1px;
+      }
+      h3{
+        font-style: none;
+      }
+      .title-header{
+        font-size: 15px;
+      }
+      .text-header{
+        font-size: 10px;
+        width: 900px;
+      }
+      .column-head{
+        font-size: 9px;
+        font-weight: bold;
+        width: 200px;
+      }
+      .column-content{
+        font-size: 9px;
+        width: 200px;
+      }
+      .padding-left-3{
+       	padding-left: 25px;
+	  }
+</style>
+</head>
+<body padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+  <table>
+    <tr>
+      <td class="text-header">Transfer Order&nbsp;: ${header.document_number}</td>
+
+      <td class="text-header">From&nbsp;: ${header.location_from}</td>
+
+      <td class="text-header">Item&nbsp;: ${header.item}</td>
+
+      <td class="text-header">Komplit Inv&nbsp;: ${header.checkboxInv}</td>
+    </tr>
+    <tr>
+      <td class="text-header">Date&nbsp;: ${header.start_date} - ${header.end_date}</td>
+
+      <td class="text-header">To&nbsp;: ${header.location_to}</td>
+
+      <td class="text-header">Product&nbsp;: ${header.product}</td>
+
+      <td class="text-header">Tampil Pur&nbsp;: ${header.checkboxPurch}</td>
+    </tr>
+  </table>
+
+    <table class="content">
+<thead>
+	<tr>
+	<td class="column-head">TO#</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">Date</td>
+	<td class="column-head">From</td>
+	<td class="column-head">To</td>
+	<td class="column-head">&nbsp;</td>
+	<!-- <td class="column-head">&nbsp,</td> -->
+	<td class="column-head">Amount Ord.</td>
+	<td class="column-head">Amount Rec.</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">Ord - Rec.</td>
+	</tr>
+	<tr>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">&nbsp;INV#</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">Harga per Ctn</td>
+	<td class="column-head">Ordered</td>
+	<td class="column-head">Fulfilled</td>
+	<td class="column-head">Amount Ord.</td>
+	<td class="column-head">Amount Rec.</td>
+	<td class="column-head">Sisa</td>
+	<td class="column-head">Ord. - Rec.</td>
+	</tr>
+	<tr>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">IR#</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">Date</td>
+	<td class="column-head">Ctn/Pcs</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">Amount Rec.</td>
+	<td class="column-head">&nbsp;</td>
+	<td class="column-head">&nbsp;</td>
+	</tr>
+</thead>
+
+<#list test.dataSetFinal as data1>
+<#list transferOrder.tempDataSet as data>
+
+<#if data.transfer_order.isExist == "0" && data1.transfer_order.isExist == "0" && data1.transfer_order.documentNumber == data.transfer_order.documentNumber && data.transfer_order.amount_order_total != "0" && data.transfer_order.isReceipt == "false">
+	<tr>
+	<td class="column-content">${data.transfer_order.documentNumber}</td>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+	<td class="column-content">${data.transfer_order.tanggal}</td>
+	<td class="column-content">${data.transfer_order.lokasi}</td>
+	<td class="column-content">${data.transfer_order.lokasiTo}</td>
+	<td class="column-content">&nbsp;</td>
+	<!-- <td class="column-head">&nbsp,</td> -->
+	<td class="column-content">${(data.transfer_order.amount_order_total?number)?string[",##0"]}.00</td>
+	<td class="column-content">${(data.transfer_order.amount_recieved_total?number)?string[",##0"]}.00</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">${(data.transfer_order.amount_sisa_total?number)?string[",##0"]}.00</td>
+	</tr>
+</#if>
+</#list>
+<#if data1.data_item.documentNumberParam == data1.transfer_order.documentNumber && data1.data_item.isExist == "0" && data1.transfer_order.documentNumber != "empty" && data1.data_item.isKomplitInv == "T">
+	
+	<tr>
+	<td class="column-content">&nbsp;</td>
+	<td colspan="4" class="column-content">&nbsp;${data1.data_item.item}</td>
+	<!-- <td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td> -->
+	<td class="column-content">${(data1.data_item.price?number)?string[",##0"]}.00</td>
+	<td class="column-content">${data1.data_item.carton} / ${data1.data_item.pcs}</td>
+	<td class="column-content">${data1.data_item.cartonFullfillemntTotal} / ${data1.data_item.pcsFullfillmentTotal}</td>
+	<td class="column-content">${(data1.data_item.amount_order?number)?string[",##0"]}.00</td>
+	<td class="column-content">${(data1.data_item.amount_recieved?number)?string[",##0"]}.00 </td>
+	<td class="column-content">${data1.data_item.sisa_carton} / ${data1.data_item.sisa_pcs}</td>
+	<td class="column-content">${((data1.data_item.amount_order?number)-(data1.data_item.amount_recieved?number))?string[",##0"]}.00</td>
+	</tr>
+<#elseif data1.data_item.documentNumberParam == data1.transfer_order.documentNumber && data1.data_item.isExist == "0" && data1.transfer_order.documentNumber != "empty" && data1.data_item.isKomplitInv == "F" && header.item != "ALL">
+	
+	<tr>
+	<td class="column-content">&nbsp;</td>
+	<td colspan="4" class="column-content">&nbsp;${data1.data_item.item}</td>
+	<!-- <td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td> -->
+	<td class="column-content">${(data1.data_item.price?number)?string[",##0"]}.00</td>
+	<td class="column-content">${data1.data_item.carton} / ${data1.data_item.pcs}</td>
+	<td class="column-content">${data1.data_item.cartonFullfillemntTotal} / ${data1.data_item.pcsFullfillmentTotal}</td>
+	<td class="column-content">${(data1.data_item.amount_order?number)?string[",##0"]}.00</td>
+	<td class="column-content">${(data1.data_item.amount_recieved?number)?string[",##0"]}.00 </td>
+	<td class="column-content">${data1.data_item.sisa_carton} / ${data1.data_item.sisa_pcs}</td>
+	<td class="column-content">${((data1.data_item.amount_order?number)-(data1.data_item.amount_recieved?number))?string[",##0"]}.00</td>
+	</tr>
+</#if>
+<#if data1.data_receipt.documentNumberParam == data1.transfer_order.documentNumber && data1.data_receipt.type == "ItemRcpt" && data1.data_receipt.isKomplitPurch == "T" && data1.data_item.isKomplitInv == "T">
+	<tr>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">${data1.data_receipt.documentNumberFullfillment}</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">${data1.data_receipt.tanggalFullFillment}</td>
+	<td class="column-content">${data1.data_receipt.cartonFullfillemnt}/${data1.data_receipt.pcsFullfillment}</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">${(data1.data_receipt.amountRecievedEachReciept?number)?string[",##0"]}.00</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td>
+	</tr>
+
+<#elseif data1.data_receipt.documentNumberParam == data1.transfer_order.documentNumber && data1.data_receipt.type == "ItemRcpt" && data1.data_receipt.isKomplitPurch == "T" && data1.data_item.isKomplitInv == "F" && header.item != "ALL">
+	<tr>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">${data1.data_receipt.documentNumberFullfillment}</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">${data1.data_receipt.tanggalFullFillment}</td>
+	<td class="column-content">${data1.data_receipt.cartonFullfillemnt}/${data1.data_receipt.pcsFullfillment}</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">${(data1.data_receipt.amountRecievedEachReciept?number)?string[",##0"]}.00</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td>
+	</tr>
+</#if>
+
+
+<!-- <#list detail.dataReceiptArr as dataReceipt>
+	<tr>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">${dataReceipt.documentNumberFullfillment}</td>
+	<td class="column-content">Date</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">Ctn/Pcs</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">Amount Rec.</td>
+	<td class="column-content">&nbsp;</td>
+	<td class="column-content">&nbsp;</td>
+	</tr>
+</#list> -->
+</#list>
+
+</table>
+</body>
+</pdf>

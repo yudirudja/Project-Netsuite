@@ -1,0 +1,282 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd"> 
+<pdf>
+    <head>
+        <#assign datenows = .now?date>
+        <#assign timenows = .now?time>
+        <link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+        <#if .locale == "zh_CN">
+            <link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+        <#elseif .locale == "zh_TW">
+            <link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+        <#elseif .locale == "ja_JP">
+            <link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+        <#elseif .locale == "ko_KR">
+            <link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+        <#elseif .locale == "th_TH">
+            <link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+        </#if>
+        <macrolist>
+            <macro id="nlheader">
+
+            </macro>
+            <macro id="nlfooter">
+                <table class="footer" style="width: 100%;padding-top:-30px">
+                  <tr>
+                        <td align="left">
+                            <pagenumber/> of <totalpages/>
+                        </td>
+                  </tr>
+                </table>
+            </macro>
+        </macrolist>
+        <style type="text/css">* {
+            <#if .locale == "zh_CN">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "zh_TW">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "ja_JP">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "ko_KR">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "th_TH">
+                font-family: Arial, sans-serif;
+            <#else>
+                font-family: Arial, sans-serif;
+            </#if>
+            }
+            * {
+                font-size: 8px;
+            }
+            table {
+                font-size: 8px;
+                table-layout: fixed;
+            }
+            th {
+                font-weight: bold;
+                font-size: 8pt;
+                vertical-align: middle;
+                color: #333333;
+            }
+            td p { align:left }
+            
+            table.header td {
+                padding: 0px;
+                font-size: 8px;
+            }
+            table.header_border {
+                padding: 0px;
+                vertical-align: top;
+            }
+            table.header tr:last-child{
+                page-break-after: auto;
+            }
+
+            table.content th {
+                border-top: 1px solid;
+                border-bottom: 1px solid;
+                border-left: 1px solid;
+                padding: 1px
+            }
+            table.content th:first-child {
+                border-left: none;
+            }
+            table.content td {
+                border-left: 1px solid;
+                page-break-inside: auto;
+                box-decoration-break: clone;
+            }
+            <!-- table.content tr {
+                page-break-after: auto;
+            } -->
+            table.content td:first-child {
+                border-left: none;
+            }
+
+            table.tandatangan tr:first-child{
+                page-break-after: avoid;
+                page-break-before: auto;
+            }
+            table.tandatangan tr{
+                page-break-after: avoid;
+                page-break-before: avoid;
+            }
+            table.tandatangan tr:last-child{
+                page-break-after: auto;
+                page-break-before: avoid;
+            }
+            table.header_kop {
+                border-collapse: collapse;
+            }
+            .white-char {
+                color: white;
+            }
+                
+        </style>
+    </head>
+    <body footer="nlfooter"  padding="0.1in 0.5in 0.1in 0.5in" width="215mm" height="140mm">
+
+            <table class="header" width="100%" padding-bottom="5px">
+                <tr>
+                    <td width="50%" padding-top= "10px">
+                        <p align="left">Pembeli: ${record.custbody_me_customer_tampungan}</p>
+                    </td>
+                    <td width="50%" padding-top= "10px">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%" padding-top= "10px">
+                        <p align="left"></p>
+                    </td>
+                    <td width="50%" padding-top= "10px" padding-left="10px">
+                        <p align="center" style="font-size:23px; font-weight:bold" >KELUAR</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%" padding-top= "10px">
+                        <p align="left" style="font-size:10px"></p>
+                    </td>
+                    <td width="50%" padding-top= "10px" padding-left="10px">
+                        <p align="center" style="font-size:20px;text-transform: uppercase"> ${record.custbody_me_invoice} </p>
+                    </td>
+                </tr>
+                 <tr>
+                    <td width="50%" padding-top= "5px">
+                        <p align="left" style="font-size:15px;">FAKTUR NO: ${record.nomor_faktur}</p>
+                    </td>
+                    <td width="50%" padding-top= "5px" padding-left="40px">
+                        <p align="center" style="font-size:15px">PO No.: ${record.otherrefnum} </p>
+                    </td>
+                </tr>
+
+            </table>
+
+            <table class="content" width="100%" style="border:1px;border-top:none;border-collapse: collapse;">
+
+            <thead>
+            <tr>
+            <th align="center" width="10%" >Banyaknya</th>
+            <th align="center" >Part No. Type</th>
+            <th align="center" >Nama Barang</th>
+            </tr>
+            </thead>
+
+            <#assign total = 0>
+            <#list record.item as item>
+            <#if item.iskit == "false">
+            <tr>
+            <td  align="right">${item.quantity} ${item.units}</td>
+            <td align="left">${item.custcol_me_item_code}</td>
+            <td align="left">${item.custcol_me_item_name}</td>
+            </tr>
+            </#if>
+            <#assign total += item.amount?number + item.promo_all_item?number>
+            </#list>
+
+            </table>
+            
+            <table class="content" width="100%" style="padding-top:10px">
+
+            <tr>
+            <td align="center" style='border-left:none'>PETUGAS I:</td>
+            <td align="center" style='border-left:none'>PETUGAS II:</td>
+            <td align="center" style='border-left:none'>${record.city}, ${record.trandate}</td>
+            <td align="center" style='border-left:none'>${record.salesrep}</td>
+            </tr>
+
+            <#if record.is_show_logo == 'true'>
+            <tr>
+            <td align="center" style='border-left:none'></td>
+            <td align="center" style='border-left:none'></td>
+            <td align="left" style='border-left:none' colspan="2"><span style="font-weight:bold;text-transform: uppercase">${record.addressee}</span></td>
+            </tr>
+            </#if>
+
+            </table>
+            
+
+        <!-- <table class="content" width="100%" style= "margin-top:10px">
+            <thead>
+                <tr>
+                    <th rowspan="2" width="25%" style=''> <p align="center"> Description Of Goods </p></th>
+                    <th rowspan="2"> <p align="center" style=''> Unit Quantity </p> </th>
+                    <th rowspan="2" width="28%" style=''> <p align="center">Coils/Basket/Box/Spool No. </p></th>
+                    <th colspan="2"><p align="center" style='padding-top:10px;padding-bottom:5px'> Weight Kgs </p></th>
+                    <th rowspan="2" width="17%" style=''><p align="center"> Notes </p></th>
+                </tr>
+                <tr>
+                    <th align="center" style = "border-top: none; border-left: 1px solid;padding-top:5px;padding-bottom:5px;"> Bruto </th>
+                    <th align="center" style = "border-top: none;padding-top:5px;padding-bottom:5px;"> Netto </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="25%"> <p align="center"></p></td>
+                    <td> <p align="center"></p> </td>
+                    <td width="28%"> <p align="center"></p></td>
+                    <td align="center" style = "border-top: none; border-left: 1px solid;"></td>
+                    <td align="center" style = "border-top: none;"></td>
+                    <td width="17%"><p align="center"></p></td>
+                </tr>
+                <#list record.data_items as item>
+                    <#list item.detail_lot as lot>
+                        <#if item_index gt 0 && lot_index == 0>
+                            <tr style="border-top: 1px solid;">
+                        <#else>
+                            <tr>
+                        </#if>
+                                <#if lot_index == 0>
+                                        <td  style="padding-top: 1px;"> ${item.item_name} </td>
+                                        <td align="center" style="padding-top: 1px;" > ${item.total_coil} ${item.item_unit_name} </td>
+                                <#elseif lot_index != 0>
+                                        <td  style="padding-top: 1px;">  </td>
+                                        <td align="center" style="padding-top: 1px;" >  </td>
+                                </#if>
+                                <td align="center" style="border-left: 1px solid; padding-top: 1px;"> 
+                                    ${lot.item_lot_name}
+                                </td> 
+                                <td align="center" style="padding-top: 1px;"> 
+                                    ${(lot.qty_bruto?number)?string[",##0.00"]}
+                                </td>  
+                                <td align="center" style="padding-top: 1px;"> 
+                                    ${(lot.qty_netto?number)?string[",##0.00"]}
+                                </td>  
+                                <#if lot_index == 0 && item_index == 0>
+                                    <td align="left" style="padding-top: 1px;"> ${record.memo}</td>
+                                <#else>
+                                    <td align="left" style="padding-top: 1px"><span style="color:white">.</span> </td>
+                                </#if>
+                            </tr>
+                    </#list>
+                    <tr>
+                        <td style="padding-top: 2px;"></td>
+                        <td style="padding-top: 2px;"></td>
+                        <td align="center" style="margin: 0px 0px 0px 0px; border-top: 1px dotted; font-weight: bold; width: 100%;padding-top: 1px;"> ${(item.total_coil?number)?string[",##0"]}  ${item.item_unit_name} </td>
+                        <td align="center" style="margin: 0px 0px 0px 0px; border-top: 1px dotted; font-weight: bold; width: 100%;padding-top: 1px;"> ${(item.total_bruto?number)?string[",##0.00"]} </td>
+                        <td align="center" style="margin: 0px 0px 0px 0px; border-top: 1px dotted; font-weight: bold; width: 100%;padding-top: 1px;"> ${(item.total_netto?number)?string[",##0.00"]} </td>
+                        <td style="padding-top: 2px;"></td>
+                    </tr>
+                </#list>
+                <tr>
+                    <td width="25%"> <p align="center"></p></td>
+                    <td> <p align="center"></p> </td>
+                    <td width="28%"> <p align="center"></p></td>
+                    <td align="center" style = "border-top: none; border-left: 1px solid;"></td>
+                    <td align="center" style = "border-top: none;"></td>
+                    <td width="17%"><p align="center"></p></td>
+                </tr>
+                <tr>
+                    <td colspan="6" style = "border-top: 1px solid; padding: 10px 0px; border-bottom: none;"> 
+                        <b> Netto: ${record.terbilang?upper_case} KGS </b>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr style = "border-top: 1px solid">
+                    <td colspan="6"></td>
+                </tr>
+            </tfoot>
+        </table> -->
+
+
+    </body> 
+</pdf>

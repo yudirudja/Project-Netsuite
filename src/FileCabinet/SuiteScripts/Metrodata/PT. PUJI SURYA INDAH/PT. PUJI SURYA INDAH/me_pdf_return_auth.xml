@@ -1,0 +1,281 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+<head>
+	<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+	<#if .locale == "zh_CN">
+		<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+	<#elseif .locale == "zh_TW">
+		<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+	<#elseif .locale == "ja_JP">
+		<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+	<#elseif .locale == "ko_KR">
+		<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+	<#elseif .locale == "th_TH">
+		<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+	</#if>
+    <style type="text/css">* {
+						<#if .locale == "zh_CN">
+							font-family: NotoSans, NotoSansCJKsc, sans-serif;
+						<#elseif .locale == "zh_TW">
+							font-family: NotoSans, NotoSansCJKtc, sans-serif;
+						<#elseif .locale == "ja_JP">
+							font-family: NotoSans, NotoSansCJKjp, sans-serif;
+						<#elseif .locale == "ko_KR">
+							font-family: NotoSans, NotoSansCJKkr, sans-serif;
+						<#elseif .locale == "th_TH">
+							font-family: NotoSans, NotoSansThai, sans-serif;
+						<#else>
+							font-family: NotoSans, sans-serif;
+						</#if>
+					}
+					td p { align:left }
+
+      .content{
+        border-bottom:1px;
+        margin-top: 50px;
+		width: 750px;
+      }
+      thead{
+        border-bottom:1px;
+        border-top:1px;
+      }
+      h3{
+        font-style: none;
+      }
+      .title-header{
+        font-size: 15px;
+      }
+      .text-header{
+        font-size: 10px;
+        width: 900px;
+      }
+      .column-head{
+        font-size: 7px;
+        font-weight: bold;
+        width: 20px;
+      }
+      .column-content{
+        font-size: 6px;
+        width: 20px;
+      }
+      .padding-left-3{
+       	padding-left: 25px;
+	  }
+</style>
+</head>
+<body padding="0.1in 0.1in 0.1in 0.1in" size="Letter">
+  <table>
+    <tr>
+      <td class="text-header">Transfer Order: ${header.document_number}</td>
+
+      <td class="text-header">From: ${header.location_from}</td>
+
+      <td class="text-header">Item: ${header.item}</td>
+
+      <td class="text-header">Komplit Inv: ${header.checkboxInv}</td>
+    </tr>
+    <tr>
+      <td class="text-header">Date: ${header.start_date} - ${header.end_date}</td>
+
+      <td class="text-header">To: ${header.location_to}</td>
+
+      <td class="text-header">Product: ${header.product}</td>
+
+      <td class="text-header">Tampil Pur: ${header.checkboxPurch}</td>
+    </tr>
+  </table>
+
+    <table class="content">
+<thead>
+	<tr>
+	<td class="column-head">Inv#</td>
+	<td class="column-head"></td>
+	<td class="column-head">Date</td>
+	<td class="column-head"></td>
+	<td class="column-head">Customer</td>
+	<td class="column-head"></td>
+	<td class="column-head"></td>
+	<td class="column-head"></td>
+	<td  class="column-head"></td>
+	<td colspan = "6" class="column-head" align="center">Total</td>
+	<td colspan = "5" class="column-head" align="center">Paid</td>
+	<td colspan = "5" class="column-head" align="center">Balance</td>
+	<td class="column-head">No. DPP + PPN</td>
+	<!-- <td class="column-head">&nbsp,</td> -->
+	<td class="column-head">Coll/TglAR DPP+PPN</td>
+	<td class="column-head"></td>
+	</tr>
+	<tr>
+	<td class="column-head"></td>
+	<td class="column-head">BK</td>
+	<td class="column-head"></td>
+	<td class="column-head">Netto</td>
+	<td class="column-head">PPN</td>
+	<td class="column-head">Group</td>
+	<td colspan = "2" class="column-head">Salesman</td>
+	<td colspan = "6" class="column-head" align = "center">Nomor Pajak</td>
+	<td colspan = "5" class="column-head" align = "center">Nomor Dokumen</td>
+	<td class="column-head" align = "center"></td>
+	<td class="column-head" align = "center"></td>
+	<td class="column-head" align = "center"></td>
+	<td class="column-head" align = "center"></td>
+	<td class="column-head" align = "center"></td>
+	<td class="column-head">Eks/int</td>
+	<td class="column-head">Eks/int PPnH04</td>
+	<td class="column-head">Upload</td>
+	</tr>
+	<tr>
+	<td class="column-head"></td>
+	<td class="column-head"></td>
+    <td class="column-head"></td>
+	<td class="column-head">Item</td>
+	<td class="column-head"></td>
+	<td class="column-head">Ctn/Pcs</td>
+	<td class="column-head">Bonus</td>
+	<td class="column-head">Price</td>
+	<td colspan = "3" class="column-head" align = "center">Disc A1</td>
+	<td colspan = "3" class="column-head" align = "center">Disc A2</td>
+	<td colspan = "3" class="column-head" align = "center">Disc A3</td>
+	<td colspan = "2" class="column-head" align = "center">Disc B1</td>
+	<td colspan = "2" class="column-head" align = "center">Disc B2</td>
+	<td colspan = "2" class="column-head" align = "center">Disc B3</td>
+	<td class="column-head">Cash(%)</td>
+	<td class="column-head">NetAmount</td>
+	<td class="column-head">Expired</td>
+	<td class="column-head">Keterangan</td> 
+	</tr>
+	<tr>
+	<td class="column-head"></td>
+	<td class="column-head"></td>
+    <td class="column-head"></td>
+	<!-- <td rowspan = "2" class="column-head">Item</td> -->
+	<td class="column-head"></td>
+	<td class="column-head"></td>
+	<td class="column-head"></td>
+	<td class="column-head"></td>
+	<td class="column-head"></td>
+	<!-- <td rowspan="2" class="column-head">Ctn/Pcs</td> -->
+	<!-- <td rowspan="2" class="column-head">Bonus</td> -->
+	<!-- <td rowspan="2" class="column-head">Price</td> -->
+	<td class="column-head">%</td>
+	<td class="column-head">Rp</td>
+	<td class="column-head">%</td>
+	<td class="column-head">%</td>
+	<td class="column-head">Rp</td>
+	<td class="column-head">%</td>
+	<td class="column-head">%</td>
+	<td class="column-head">Rp</td>
+	<td class="column-head">%</td>
+	<td class="column-head">%</td>
+	<td class="column-head">Rp</td>
+	<td class="column-head">%</td>
+	<td class="column-head">Rp</td>
+	<td class="column-head">%</td>
+	<td class="column-head">Rp</td>
+	<td class="column-head"></td>
+	<td class="column-head"></td>
+	<td class="column-head"></td>
+	<td class="column-head"></td>
+	</tr>
+</thead>
+
+<#list record.data as data>
+	<tr>
+	<td class="column-content">${data.docNum}</td>
+	<td class="column-content"></td>
+	<td class="column-content" align = "right">${data.date}</td>
+	<td class="column-content"></td>
+	<td class="column-content">${data.customer_name}</td>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+	<td  class="column-content"></td>
+	<td colspan = "6" class="column-content" align="center">${data.total?number?string[",##0"]}</td>
+	<td colspan = "5" class="column-content" align="center">${data.paid?number?string[",##0"]}</td>
+	<td colspan = "5" class="column-content" align="center">${((data.total)?number - (data.paid)?number)?string[",##0"]}</td>
+	<td class="column-content">${data.no_dpp_ppn}</td>
+	<!-- <td class="column-content">&nbsp,</td> -->
+	<td class="column-content">Coll/TglAR DPP+PPN</td>
+	<td class="column-content"></td>
+	</tr>
+	<#list data.item_line as item_line>
+	<tr>
+	<td class="column-content"></td>
+	<td class="column-content">${item_line.baik_rusak}</td>
+	<td class="column-content"></td>
+	<td class="column-content">${item_line.netto?string[",##0"]}</td>
+	<td class="column-content">${item_line.ppn?string[",##0"]}</td>
+	<td class="column-content">${item_line.group}</td>
+	<td colspan = "2" class="column-content">${item_line.sales_rep}</td>
+	<td colspan = "6" class="column-content" align = "center">Nomor Pajak</td>
+	<td colspan = "5" class="column-content" align = "center">${item_line.docNumReturnCustomer}</td>
+	<td class="column-content" align = "center"></td>
+	<td class="column-content" align = "center"></td>
+	<td class="column-content" align = "center"></td>
+	<td class="column-content" align = "center"></td>
+	<td class="column-content" align = "center"></td>
+	<td class="column-content">${item_line.ext_int?string[",##0"]}</td>
+	<td class="column-content">Eks/int PPnH04</td>
+	<td class="column-content">Upload</td>
+	</tr>
+	<#list item_line.sub_item_line as sub_item_line>
+	<tr>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+    <td class="column-content"></td>
+	<td class="column-content">${sub_item_line.item}</td>
+	<td class="column-content"></td>
+	<td class="column-content">${sub_item_line.qtyCartonFulfill}/${sub_item_line.qtyPcsFulfill}</td>
+	<td class="column-content">${sub_item_line.bonusCtn}/${sub_item_line.bonusPcs}</td>
+	<td class="column-content">${sub_item_line.rateBeforeDics?number?string[",##0.##"]}</td>
+	<td colspan = "3" class="column-content" align = "center"></td>
+	<td colspan = "3" class="column-content" align = "center"></td>
+	<td colspan = "3" class="column-content" align = "center"></td>
+	<td colspan = "2" class="column-content" align = "center"></td>
+	<td colspan = "2" class="column-content" align = "center"></td>
+	<td colspan = "2" class="column-content" align = "center"></td>
+	<td class="column-content" align = "right">E:</td>
+	<td class="column-content">${sub_item_line.amount_net?number?string[",##0.##"]}</td>
+	<td class="column-content">${sub_item_line.expireDate}</td>
+	<td class="column-content">${sub_item_line.alasanRetur}</td> 
+	</tr>
+	<tr>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+    <td class="column-content"></td>
+	<!-- <td rowspan = "2" class="column-content">Item</td> -->
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+	<!-- <td rowspan="2" class="column-content">Ctn/Pcs</td> -->
+	<!-- <td rowspan="2" class="column-content">Bonus</td> -->
+	<!-- <td rowspan="2" class="column-content">Price</td> -->
+	<td class="column-content">${sub_item_line.discA1a?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discA1?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discA1b?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discA2a?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discA2?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discA2b?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discA3a?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discA3?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discA3b?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discB1a?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discB1?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discB2a?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discB2?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discB3a?number?string[",##0"]}</td>
+	<td class="column-content">${sub_item_line.discB3?number?string[",##0"]}</td>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+	<td class="column-content"></td>
+	</tr>
+	</#list>
+	</#list>
+</#list>
+
+</table>
+</body>
+</pdf>

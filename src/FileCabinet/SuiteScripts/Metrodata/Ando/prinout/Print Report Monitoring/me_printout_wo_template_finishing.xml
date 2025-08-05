@@ -1,0 +1,328 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd"> 
+<pdf>
+    <head>
+        <#assign datenows = .now?date>
+        <#assign timenows = .now?time>
+        <link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+        <#if .locale == "zh_CN">
+            <link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+        <#elseif .locale == "zh_TW">
+            <link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+        <#elseif .locale == "ja_JP">
+            <link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+        <#elseif .locale == "ko_KR">
+            <link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+        <#elseif .locale == "th_TH">
+            <link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+        </#if>
+        <macrolist>
+            <macro id="nlheader">            
+                <table class="header" width="100%" padding-bottom="5px" >
+                    <tr>
+                        <td width="25%" padding-top= "10px" >
+                            <img src="https://td2995066.app.netsuite.com/core/media/media.nl?id=57182&amp;c=TD2995066&amp;h=f2ayqY9pZkGvHw5pSHr1MMpPYnHFaywnHhAA2mXbCF2IDyqh" style="width: 25%; height: 25%;"/>
+                        </td>
+                        <td width="25%" padding-top= "10px" > 
+                            <p style="font-size:12px; font-weight:bold" align="left" valign="middle">Laporan Hasil Produksi</p>
+                        </td>
+                        <td width="25%" padding-top= "10px" >
+                            <p style="font-size:12px;" align="left" valign="middle">Bagian: ${record.header.class_name}</p>
+                        </td>
+                        <td width="25%" padding-top= "10px" >
+                            <p style="font-size:12px;" align="left" valign="middle">Hari/Tanggal: ${record.header.day_date}</p>
+                        </td>
+                    </tr>
+
+                </table>
+            </macro>
+            <macro id="nlfooter">
+                <table class="footer" style="width: 100%;padding-top:-30px">
+                  <tr>
+                        <td align="left">
+                            <pagenumber/> of <totalpages/>
+                        </td>
+                  </tr>
+                </table>
+            </macro>
+        </macrolist>
+        <style type="text/css">* {
+            <#if .locale == "zh_CN">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "zh_TW">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "ja_JP">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "ko_KR">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "th_TH">
+                font-family: Arial, sans-serif;
+            <#else>
+                font-family: Arial, sans-serif;
+            </#if>
+            }
+            * {
+                font-size: 7px;
+                  color:black;
+            }
+            table {
+                font-size: 7px;
+                table-layout: fixed;
+              color:black;
+            }
+            .th {
+                font-weight: bold;
+                font-size: 8pt;
+                vertical-align: middle;
+                color: #333333;
+            }
+            td p { align:left;color:black; }
+            
+            table.header td {
+                padding: 0px;
+                font-size: 7px;
+              color:black;
+            }
+            table.header_border {
+                padding: 0px;
+                vertical-align: top;
+              color:black;
+            }
+            table.header tr:last-child{
+                page-break-after: auto;
+              color:black;
+            }
+
+            table.content .th {
+                border-top: 1px solid;
+                border-bottom: 1px solid;
+                border-left: 1px solid;
+                padding: 1px;
+              color:black;
+            }
+            <!-- table.content th:first-child {
+                border-left: none;
+  color:black;;
+            } -->
+            table.content td {
+                border-left: 1px solid;
+                page-break-inside: auto;
+                box-decoration-break: clone;
+              color:black;
+            }
+            <!-- table.content tr {
+                page-break-after: auto;
+              color:black;;
+            } -->
+            <!-- table.content td:first-child {
+                border-left: none;
+              color:black;
+            } -->
+
+            table.tandatangan tr:first-child{
+                page-break-after: avoid;
+                page-break-before: auto;
+              color:black;
+            }
+            table.tandatangan tr{
+                page-break-after: avoid;
+                page-break-before: avoid;
+              color:black;
+            }
+            table.tandatangan tr:last-child{
+                page-break-after: auto;
+                page-break-before: avoid;
+              color:black;
+            }
+            table.header_kop {
+                border-collapse: collapse;
+              color:black;
+            }
+            .white-char {
+                color: white;
+            }
+                
+        </style>
+    </head>
+    <body  header="nlheader" padding="0.1in 0.5in 0.1in 0.5in" size="Letter-Landscape" >
+
+            <table class="content" width="100%" style="border-bottom:1px;" padding-top="75px">
+            
+            <thead>
+            <tr>
+                <td class="th" align="center" width="15%" style="border-left:1px;" rowspan = "2">No. WO/Model/Warna</td>
+                <td class="th" align="center" width="3%" rowspan = "2">Jmlh. Komponen</td>
+                <td class="th" align="center" width="15%" rowspan="2">Komponen</td>
+                <td class="th" align="center" width="35%" colspan="18" >Size</td>
+                <td class="th" align="center" width="7%" colspan="2" >Komponen</td>
+                <td class="th" align="center" width="26%" colspan="12" style="border-right:1px;">pasang</td>
+            </tr>
+            <tr>
+                <td class="th" colspan="3" align="center">39</td>
+                <td class="th" colspan="3" align="center">40</td>
+                <td class="th" colspan="3" align="center">41</td>
+                <td class="th" colspan="3" align="center">42</td>
+                <td class="th" colspan="3" align="center">43</td>
+                <td class="th" colspan="3" align="center">44</td>
+                <td class="th" rowspan = "2" align="center">Hari Ini</td>
+                <td class="th" rowspan = "2" align="center">S/D Hari Ini</td>
+                <!-- <td class="th" align="center">Hari Ini</td>
+                <td class="th" align="center" style="border-right:1px;">S/D Hari Ini</td> -->
+                <td class="th" colspan="2" align="center">39</td>
+                <td class="th" colspan="2" align="center">40</td>
+                <td class="th" colspan="2" align="center">41</td>
+                <td class="th" colspan="2" align="center">42</td>
+                <td class="th" colspan="2" align="center">43</td>
+                <td class="th" colspan="2" align="center" style="border-right:1px;">44</td>
+            </tr>
+            <tr>
+                <td class="th" align="center">H</td>
+                <td class="th" align="center">SDH</td>
+                <td class="th" align="center">T</td>
+                <td class="th" align="center">H</td>
+                <td class="th" align="center">SDH</td>
+                <td class="th" align="center">T</td>
+                <td class="th" align="center">H</td>
+                <td class="th" align="center">SDH</td>
+                <td class="th" align="center">T</td>
+                <td class="th" align="center">H</td>
+                <td class="th" align="center">SDH</td>
+                <td class="th" align="center">T</td>
+                <td class="th" align="center">H</td>
+                <td class="th" align="center">SDH</td>
+                <td class="th" align="center">T</td>
+                <td class="th" align="center">H</td>
+                <td class="th" align="center">SDH</td>
+                <td class="th" align="center">T</td>
+                <td class="th" align="center">H</td>
+                <td class="th" align="center">SDH</td>
+                <!-- <td class="th" align="center">Hari Ini</td>
+                <td class="th" align="center">S/D Hari Ini</td> -->
+                <!-- <td class="th" align="center">Hari Ini</td>
+                <td class="th" align="center" style="border-right:1px;">S/D Hari Ini</td> -->
+                <td class="th"  align="center">H</td>
+                <td class="th"  align="center">SDH</td>
+                <td class="th"  align="center">H</td>
+                <td class="th"  align="center">SDH</td>
+                <td class="th"  align="center">H</td>
+                <td class="th"  align="center">SDH</td>
+                <td class="th"  align="center">H</td>
+                <td class="th"  align="center">SDH</td>
+                <td class="th"  align="center">H</td>
+                <td class="th"  align="center">SDH</td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <#list record.sublist as parent>
+                
+                <tr>
+                    <td align="center" style="border-bottom:1px" ><p>${parent.document_number}</p><p>${parent.item_assembly_build_text}</p></td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.line?size}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.item_assembly_build_text}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.order_build_39}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_today_39}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_until_today_39}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.order_build_40}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_today_40}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_until_today_40}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.order_build_41}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_today_41}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_until_today_41}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.order_build_42}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_today_42}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_until_today_42}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.order_build_43}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_today_43}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_until_today_43}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.order_build_44}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_today_44}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.built_until_today_44}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.total_komponen_hari_ini}</td>
+                    <td align="center" valign="middle" style="border-bottom:1px">${parent.total_komponen_sd_hari_ini}</td>
+                    <td align="center" valign="middle" >${parent.built_today_39}</td>
+                    <td align="center" valign="middle" >${parent.built_until_today_39}</td>
+                    <td align="center" valign="middle" >${parent.built_today_40}</td>
+                    <td align="center" valign="middle" >${parent.built_until_today_40}</td>
+                    <td align="center" valign="middle" >${parent.built_today_41}</td>
+                    <td align="center" valign="middle" >${parent.built_until_today_41}</td>
+                    <td align="center" valign="middle" >${parent.built_today_42}</td>
+                    <td align="center" valign="middle" >${parent.built_until_today_42}</td>
+                    <td align="center" valign="middle" >${parent.built_today_43}</td>
+                    <td align="center" valign="middle" >${parent.built_until_today_43}</td>
+                    <td align="center" valign="middle" >${parent.built_today_44}</td>
+                    <td align="center" valign="middle" style="border-right:1px;">${parent.built_until_today_44}</td>
+                </tr>
+
+                <!-- <#assign row_span = item.count>
+    
+                    <#list item.data_line as sub_item>
+                        <#if item.data_line?size-1 == sub_item?index>    
+                            <tr>
+                                <td align="center" style="border-left:1px; border-bottom:1px" ><#if sub_item?index == 0 && item.data_line?size gte 2>${item.tranid}<#elseif sub_item?index == 1 && item.data_line?size gte 2>${item.item_assembly}<#elseif item.data_line?size lt 2><p>${item.tranid}</p><p>${item.item_assembly}</p></#if></td>
+                                <td align="center" valign="middle" style="border-bottom:1px"><#if sub_item?index == 0>${item.count}</#if></td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.itemid}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_order_1}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_produksi_1_today}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.total_h_produksi_1_ut}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_order_2}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_produksi_2_today}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.total_h_produksi_2_ut}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_order_3}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_produksi_3_today}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.total_h_produksi_3_ut}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_order_4}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_produksi_4_today}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.total_h_produksi_4_ut}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_order_5}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_produksi_5_today}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.total_h_produksi_5_ut}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_order_6}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px">${item.h_produksi_6_today}</td>
+                                <td align="center" valign="middle" style="border-bottom:1px"><#if sub_item?index == 0>${item.total_h_produksi_6_ut}</#if></td>
+                                <td align="center" valign="middle" style="border-bottom:1px"><#if sub_item?index == 0>${item.total_komponen_hari_ini}</#if></td>
+                                <td align="center" valign="middle" style="border-bottom:1px"><#if sub_item?index == 0>${item.total_komponen_sd_hari_ini}</#if></td>
+                                <td align="center" valign="middle" style="border-bottom:1px"><#if sub_item?index == 0>${item.total_pasang_hari_ini}</#if></td>
+                                <td align="center" valign="middle" style="border-right:1px; border-bottom:1px"><#if sub_item?index == 0>${item.total_pasang_sd_hari_ini}</#if></td>
+                            </tr>
+                        <#else>
+                            <tr>
+                                <td align="center" style="border-left:1px;" ><#if sub_item?index == 0 && item.data_line?size gte 2>${item.tranid}<#elseif sub_item?index == 1 && item.data_line?size gte 2>${item.item_assembly}<#elseif item.data_line?size lt 2><p>${item.tranid}</p><p>${item.item_assembly}</p></#if></td>
+                                <td align="center" valign="middle" ><#if sub_item?index == 0>${item.count}</#if></td>
+                                <td align="center" valign="middle" >${item.itemid}</td>
+                                <td align="center" valign="middle" >${item.h_order_1}</td>
+                                <td align="center" valign="middle" >${item.h_produksi_1_today}</td>
+                                <td align="center" valign="middle" >${item.total_h_produksi_1_ut}</td>
+                                <td align="center" valign="middle" >${item.h_order_2}</td>
+                                <td align="center" valign="middle" >${item.h_produksi_2_today}</td>
+                                <td align="center" valign="middle" >${item.total_h_produksi_2_ut}</td>
+                                <td align="center" valign="middle" >${item.h_order_3}</td>
+                                <td align="center" valign="middle" >${item.h_produksi_3_today}</td>
+                                <td align="center" valign="middle" >${item.total_h_produksi_3_ut}</td>
+                                <td align="center" valign="middle" >${item.h_order_4}</td>
+                                <td align="center" valign="middle" >${item.h_produksi_4_today}</td>
+                                <td align="center" valign="middle" >${item.total_h_produksi_4_ut}</td>
+                                <td align="center" valign="middle" >${item.h_order_5}</td>
+                                <td align="center" valign="middle" >${item.h_produksi_5_today}</td>
+                                <td align="center" valign="middle" >${item.total_h_produksi_5_ut}</td>
+                                <td align="center" valign="middle" >${item.h_order_6}</td>
+                                <td align="center" valign="middle" >${item.h_produksi_6_today}</td>
+                                <td align="center" valign="middle" ><#if sub_item?index == 0>${item.total_h_produksi_6_ut}</#if></td>
+                                <td align="center" valign="middle" ><#if sub_item?index == 0>${item.total_komponen_hari_ini}</#if></td>
+                                <td align="center" valign="middle" ><#if sub_item?index == 0>${item.total_komponen_sd_hari_ini}</#if></td>
+                                <td align="center" valign="middle" ><#if sub_item?index == 0>${item.total_pasang_hari_ini}</#if></td>
+                                <td align="center" valign="middle" style="border-right:1px;"><#if sub_item?index == 0>${item.total_pasang_sd_hari_ini}</#if></td>
+                            </tr>
+                        </#if>
+                    </#list> -->
+
+                </#list>
+            </tbody>
+            
+
+            </table>
+            
+
+
+
+    </body> 
+</pdf>

@@ -1,0 +1,464 @@
+/**
+ * @NApiVersion 2.1
+ * @NScriptType Restlet
+ * @NModuleScope SameAccount
+ */
+
+define(["N/record", "N/format", "N/search", "./config/me_config.js", './library/moment.min.js'], function (record, format, search, meconf, moment) {
+
+    const TYPE = "assemblybuild";
+    const FIELD_DATE = meconf.DATE_FIELDS;
+    const ERROR_CODE = {
+        MISSING_REQ_FIELD: 'MISSING_REQ_FIELD',
+        MISSING_REQ_VALUE: 'MISSING_REQ_VALUE',
+        DUPLICATE_VALUE: 'DUPLICATE_VALUE',
+        FIELD_MUST_BE_NUMBER: 'FIELD_MUST_BE_NUMBER',
+        INVALID_RECORD_TYPE: 'INVALID_RECORD_TYPE',
+        INVALID_VALUE: 'INVALID_VALUE',
+        MISSING_REQ_OBJECT: 'MISSING_REQ_OBJECT'
+    };
+
+    const CUSTOMER_ADDRESS_FLD = [
+        { key_name: 'addr1', fld_id: 'addr1' },
+        { key_name: 'addr2', fld_id: 'addr2' },
+        { key_name: 'city', fld_id: 'city' },
+        { key_name: 'state', fld_id: 'state' },
+        { key_name: 'zip', fld_id: 'zip' },
+        { key_name: 'country', fld_id: 'country' }
+    ];
+
+    function doError(code, message, stack) {
+        var error = {
+            error: {
+                code: code,
+                message: message,
+                stack: stack
+            }
+        };
+        log.error("error", error);
+        return error;
+    }
+
+    function createTransOrdToFulfill(context) {
+        var applyLength = 0;
+        var parentId = [];
+        var userEnteredAmount = [];
+        try {
+            if ('component' in context && Array.isArray(context.component)) {
+                for (let i = 0; i < context.component.length; i++) {
+                    var applyInvoice = context.component[i];
+                    applyLength = context.component.length;
+                    for (const key in applyInvoice) {
+                        if (key === "item") {
+                            parentId.push(applyInvoice[key]);
+                        }
+                        if (key === "quantity") {
+                            userEnteredAmount.push(applyInvoice[key]);
+                        }
+                    }
+
+                }
+            }
+
+            log.debug("parentId", parentId)
+
+            // for (let x = 0; x < parentId.length; x++) {
+
+
+            var rec = record.transform({
+                fromType: 'workorder',
+                fromId: context.createdfrom,
+                toType: 'assemblybuild',
+            });
+
+
+            var sublistName = rec.getSublists();
+
+            for (var fieldname in context) {
+                if (context.hasOwnProperty(fieldname)) {
+                    var isSublist = sublistName.indexOf(fieldname) > -1;
+                    var isObject = typeof context[fieldname] == "object";
+                    if (!isSublist || !isObject) { //field biasa karena bukan sublist maupun object
+                        if (FIELD_DATE.indexOf(fieldname) > -1) {
+                            if (context[fieldname]) {
+                                var dateString = format.parse({
+                                    value: context[fieldname],
+                                    type: format.Type.DATE
+                                });
+                                rec.setValue(fieldname, dateString);
+                            }
+                        }else if (fieldname == "inventorydetail") {
+                            var lineArr1 = context[fieldname]
+                                log.debug("run with no problem INVENTORY DETAIL", "(⊙_⊙;)")
+                                for (let a = 0; a < lineArr1.length; a++) {
+                                    var lineObjInvDetail = lineArr1[a];
+                                    var subRecordInventoryDetail = rec.getSubrecord({
+                                        fieldId: 'inventorydetail'
+                                    });
+                                    for (const fldInventoryDetail in lineObjInvDetail) {
+                                        if (fldInventoryDetail == "receiptinventorynumber") {
+                                            log.debug("receiptinventorynumber", lineObjInvDetail[fldInventoryDetail])
+                                            var lotNumber = subRecordInventoryDetail.setSublistValue({
+                                                sublistId: 'inventoryassignment',
+                                                fieldId: 'receiptinventorynumber',
+                                                value: lineObjInvDetail[fldInventoryDetail],
+                                                line: a
+                                            });
+                                        }
+                                        if (fldInventoryDetail == "inventorystatus") {
+                                            log.debug("inventorystatus", lineObjInvDetail[fldInventoryDetail])
+                                            var statusInvDet = subRecordInventoryDetail.setSublistValue({
+                                                sublistId: 'inventoryassignment',
+                                                fieldId: 'inventorystatus',
+                                                value: lineObjInvDetail[fldInventoryDetail],
+                                                line: a
+                                            });
+                                        }
+                                        // if (fldInventoryDetail == "quantity") {
+                                        //     log.debug("quantity", lineObjInvDetail[fldInventoryDetail])
+                                        //     var statusInvDet = subRecordInventoryDetail.setSublistValue({
+                                        //         sublistId: 'inventoryassignment',
+                                        //         fieldId: 'quantity',
+                                        //         value: lineObjInvDetail[fldInventoryDetail],
+                                        //         line: a
+                                        //     });
+                                        // }
+                                    }
+                                }
+                            }else{
+                            if (context[fieldname] || typeof context[fieldname] == "boolean") { rec.setValue(fieldname, context[fieldname]) };
+                        }
+                    }
+                    else if (isSublist && isObject) { //field sublist dan ada object
+                        var lineArr = context[fieldname];
+                        var sublistEditLength = rec.getLineCount({ sublistId: 'component' });
+                        log.debug("sublistLength", sublistEditLength);
+                        for (let x = 0; x < parentId.length; x++) {
+                            log.debug("parentId", parentId[x]);
+                            log.debug("userEnteredAmount", userEnteredAmount[x]);
+                            for (let i = 0; i < sublistEditLength; i++) {
+                                log.debug('invoice internal id sublist', rec.getSublistValue({ sublistId: 'component', fieldId: 'item', line: i }))
+                                if (rec.getSublistValue({ sublistId: 'component', fieldId: 'item', line: i }) == parentId[x]) {
+                                    log.debug("run with no problem INVENTORY DETAIL in SUBLIST", "ಠ_ಠ")
+                                    log.debug('working on invoice line:' + i, rec.getSublistValue({
+                                        sublistId: 'component',
+                                        fieldId: 'item',
+                                        line: i
+                                    }));
+                                    rec.setSublistValue({
+                                        sublistId: 'component',
+                                        fieldId: 'quantity',
+                                        line: i,
+                                        value: userEnteredAmount[x],
+                                    });
+                                    rec.setSublistValue({
+                                        sublistId: 'component',
+                                        fieldId: 'binitem',
+                                        line: i,
+                                        value: true
+                                    });
+                                    log.debug("run with no problem INVENTORY DETAIL in SUBLIST AFTER", "ಠ_ಠ")
+                                    // rec.setSublistValue({
+                                    //   sublistId: 'apply',
+                                    //   fieldId: 'userenteredamount',
+                                    //   line: i,
+                                    //   value: userEnteredAmount[x],
+                                    // });
+                                }
+
+                                // var lineObj = lineArr[i];
+                                // rec.selectNewLine(fieldname);
+                                // for (var fldnameperline in lineObj) {
+                                //   if (lineObj[fldnameperline]) {
+                                //     rec.setCurrentSublistValue({
+                                //       sublistId: fieldname,
+                                //       fieldId: fldnameperline,
+                                //       value: lineObj[fldnameperline]
+                                //     });
+                                //   }
+                                // }
+                                // rec.commitLine(fieldname)
+                            }
+
+                        }
+                    }
+                }
+            }
+            // }
+
+
+            var recId = rec.save();
+            var entityid = null;
+            var tranId = null;
+            var id = null;
+            var altname = null;
+            var compname = null;
+            var datecreated = null;
+            if (recId) {
+
+                var lufTrx = search.lookupFields({
+                    type: TYPE,
+                    id: recId,
+                    columns: ["tranid", "internalid"]
+                });
+                tranId = lufTrx.tranid;
+                // altname = lufTrx.altname;
+                id = lufTrx.internalid;
+                // datecreated = lufTrx.datecreated;
+            }
+            return {
+                status_request: "Berhasil Create",
+                tranid: tranId,
+                id: id[0].value,
+                // customer_name: altname,
+                create_date: moment().add(14, "hours").format("DD/MM/YYYY, h:mm:ss a"),
+            };
+        } catch (ex) {
+            return doError(ex.name, ex.message, ex.stack);
+        }
+
+    }
+
+    function updateTransOrdToFulfill(context) {
+
+        try {
+            var rec = record.load({
+                type: 'assemblybuild',
+                id: context.id,
+                isDynamic: false
+            });
+
+            var sublistName = rec.getSublists();
+
+            var isLine = false;
+
+            var line = 0;
+
+            for (var fieldname in context) {
+
+                if (context.hasOwnProperty(fieldname)) {
+                    var isSublist = sublistName.indexOf(fieldname) > -1;
+                    var isObject = typeof context[fieldname] == "object";
+                    if ((!isSublist || !isObject) && fieldname != "lineupdate") { //field biasa karena bukan sublist maupun object
+                        if (FIELD_DATE.indexOf(fieldname) > -1) {
+                            if (context[fieldname]) {
+                                var dateString = format.parse({
+                                    value: context[fieldname],
+                                    type: format.Type.DATE
+                                });
+                                rec.setValue(fieldname, dateString);
+                            }
+                        }
+                        else {
+                            if (context[fieldname] || typeof context[fieldname] == "boolean") rec.setValue(fieldname, context[fieldname]);
+                        }
+                    }
+                    else if (isSublist && isObject && fieldname != "lineupdate") { //field sublist dan ada object
+                        var lineArr = context[fieldname];
+                        for (var i = 0; i < lineArr.length; i++) {
+                            var lineObjLength = lineArr.length
+                            var lineObj = lineArr[i];
+                            // rec.selectNewLine(fieldname);
+                            for (var fldnameperline in lineObj) {
+
+                                // if (fldnameperline == "linesubrecupdate") {
+                                //     var lineSubRec = lineObj[fldnameperline];
+                                //     var lineUpdateSubRec = line.sort();
+                                //     lineUpdate.reverse();
+                                //     for (let i = 0; i < lineSubRec.length; i++) {
+                                //         rec.removeCurrentSublistSubrecord({
+                                //             sublistId: 'inventory',
+                                //             fieldId: 'inventorydetail',
+                                //             // line: i
+                                //         });
+                                //     }
+                                // }
+
+                                if (fldnameperline == "delete_sub_record_line") {
+                                    var lineDelete = lineObj[fldnameperline];
+                                    var inventoryDetailDelete = rec.getSublistSubrecord({
+                                        sublistId: 'component',
+                                        fieldId: 'inventorydetail',
+                                        line: i,
+                                    });
+                                    log.debug("linedelete", lineDelete)
+                                    lineDelete.sort();
+                                    lineDelete.reverse();
+                                    for (let j = 0; j < lineDelete.length; j++) {
+                                        inventoryDetailDelete.removeLine({
+                                            sublistId: 'inventoryassignment',
+                                            line: lineDelete[j],
+                                            // ignoreRecalc: true
+                                        });
+                                    }
+                                }
+
+                                if (fldnameperline == "invdetail") {
+                                    var arrayFieldSub = lineObj[fldnameperline];
+                                    for (let x = 0; x < arrayFieldSub.length; x++) {
+                                        var subRec = arrayFieldSub[x];
+                                        var inventoryDetail = rec.getSublistSubrecord({
+                                            sublistId: 'component',
+                                            fieldId: 'inventorydetail',
+                                            line: i,
+                                        });
+                                        for (var fieldNameSubRec in subRec) {
+                                            log.debug("fieldnameSubRec", subRec[fieldNameSubRec]);
+                                            if (subRec[fieldNameSubRec]) {
+                                                // inventoryDetail.selectNewLine({
+                                                //     sublistId: 'inventoryassignment'
+                                                // });
+                                                if (fieldNameSubRec == "inventorystatus") {
+                                                    var statusInvDet = inventoryDetail.setSublistValue({
+                                                        sublistId: 'inventoryassignment',
+                                                        fieldId: 'inventorystatus',
+                                                        value: subRec[fieldNameSubRec],
+                                                        line: x
+                                                    });
+                                                }
+                                                if (fieldNameSubRec == "receiptinventorynumber") {
+                                                    log.debug("issueinventorynumber", subRec[fieldNameSubRec]);
+                                                    var serialLotNumberInvDet = inventoryDetail.setSublistValue({
+                                                        sublistId: 'inventoryassignment',
+                                                        fieldId: 'receiptinventorynumber',
+                                                        value: subRec[fieldNameSubRec],
+                                                        line: x
+                                                    });
+                                                }
+                                                if (fieldNameSubRec == "quantity") {
+                                                    var quantityInvDetail = inventoryDetail.setSublistValue({
+                                                        sublistId: 'inventoryassignment',
+                                                        fieldId: 'quantity',
+                                                        value: subRec[fieldNameSubRec],
+                                                        line: x,
+                                                    });
+                                                }
+                                            }
+
+                                        }
+                                        // inventoryDetail.commitLine('inventoryassignment');
+                                    }
+                                } else {
+                                    var getLineCount = rec.getLineCount('component')
+                                    for (let x = 0; x < getLineCount; x++) {
+                                        if (lineObj[fldnameperline]) {
+                                            rec.setSublistValue({
+                                                sublistId: fieldname,
+                                                fieldId: fldnameperline,
+                                                value: lineObj[fldnameperline],
+                                                line: x
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                            // rec.commitLine(fieldname)
+                        }
+                    } else if (fieldname == "lineupdate") {
+                        var line = context[fieldname];
+                        var lineUpdate = line.sort();
+                        lineUpdate.reverse();
+                        var lineUpdateLength = context[fieldname].length;
+                        for (let i = 0; i < lineUpdateLength; i++) {
+                            log.debug("test delete sublist", lineUpdate[i]);
+                            rec.removeLine({
+                                sublistId: 'item',
+                                line: lineUpdate[i],
+                            });
+                        }
+                    }
+                }
+            }
+
+            var recId = rec.save();
+
+            // if(context["isinactive"] == false){
+            //   log.debug("IsInactive lewat", context["isinactive"])
+            //     try {
+            //       var rec_cust = record.submitFields({
+            //         type: TYPE,
+            //         id : context.id,
+            //         values: {
+            //             'isinactive': context["isinactive"]
+            //         }
+            //       })
+            //     } catch (ex) {
+            //       return doError(ex.name, ex.message, ex.stack);
+            //     }
+            // }
+            var entityid = null;
+            var altname = null;
+            var tranId = null;
+            var compname = null;
+            var datecreated = null;
+            if (recId) {
+
+                var lufTrx = search.lookupFields({
+                    type: TYPE,
+                    id: recId,
+                    columns: ["tranid", "internalid"]
+                });
+                tranId = lufTrx.tranid;
+                // altname = lufTrx.altname;
+                id = lufTrx.internalid;
+                // datecreated = lufTrx.datecreated;
+            }
+            return {
+                status_request: "Berhasil Update",
+                tranid: tranId,
+                id: id[0].value,
+                // customer_name: altname,
+                create_date: moment().add(14, "hours").format("DD/MM/YYYY, h:mm:ss a"),
+            };
+        } catch (ex) {
+            return doError(ex.name, ex.message, ex.stack);
+        }
+    }
+
+    function inactiveTransOrdToFulfill(context) {
+        try {
+            var rec_cust = record.submitFields({
+                type: TYPE,
+                id: context.id,
+                values: {
+                    'isinactive': true
+                }
+            })
+            return {
+                status_request: 'Berhasil Delete/Inactive'
+            }
+        } catch (ex) {
+            return doError(ex.name, ex.message, ex.stack);
+        }
+    }
+
+    function post(context) {
+        try {
+            if (Array.isArray(context)) {
+                return doError(ERROR_CODE.MISSING_REQ_OBJECT, 'Missing a required object. Please use Object {} rather than [{}].');
+            }
+            log.debug('context', context)
+            var type = context.type
+            if (type == 'create') {
+                var create = createTransOrdToFulfill(context)
+                return create
+            }
+            if (type == 'update') {
+                var update = updateTransOrdToFulfill(context)
+                return update
+            }
+            if (type == 'inactive') {
+                var inactive = inactiveTransOrdToFulfill(context)
+                return inactive
+            }
+
+        } catch (ex) {
+            return doError(ex.name, ex.message, ex.stack);
+        }
+    }
+
+
+    return {
+        post: post
+    };
+})

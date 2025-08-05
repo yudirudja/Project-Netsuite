@@ -1,0 +1,25 @@
+<suitelet scriptid="customscriptme_sl_unrealized_oth_acc">
+  <description></description>
+  <isinactive>F</isinactive>
+  <name>ME - Unrealized Other Account (SL)</name>
+  <notifyadmins>F</notifyadmins>
+  <notifyemails></notifyemails>
+  <notifyowner>T</notifyowner>
+  <notifyuser>F</notifyuser>
+  <scriptfile>[/SuiteScripts/me_sl_unrealized_oth_acc.js]</scriptfile>
+  <scriptdeployments>
+    <scriptdeployment scriptid="customdeploy_me_unrealized_oth_acc">
+      <allemployees>T</allemployees>
+      <allpartners>F</allpartners>
+      <allroles>T</allroles>
+      <audslctrole></audslctrole>
+      <eventtype></eventtype>
+      <isdeployed>T</isdeployed>
+      <isonline>F</isonline>
+      <loglevel>DEBUG</loglevel>
+      <runasrole>ADMINISTRATOR</runasrole>
+      <status>RELEASED</status>
+      <title>ME - Unrealized Other Account (SL)</title>
+    </scriptdeployment>
+  </scriptdeployments>
+</suitelet>

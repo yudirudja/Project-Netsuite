@@ -1,0 +1,68 @@
+<scheduledscript scriptid="customscript_me_ss_unrealized_cr">
+  <description></description>
+  <isinactive>F</isinactive>
+  <name>ME - Unrealized CR</name>
+  <notifyadmins>F</notifyadmins>
+  <notifyemails></notifyemails>
+  <notifyowner>T</notifyowner>
+  <scriptfile>[/SuiteScripts/Metrodata/me_ss_unrealized_ar.js]</scriptfile>
+  <scriptcustomfields>
+    <scriptcustomfield scriptid="custscript_me_cr_parameter">
+      <accesslevel>2</accesslevel>
+      <applyformatting>F</applyformatting>
+      <checkspelling>F</checkspelling>
+      <defaultchecked>F</defaultchecked>
+      <defaultselection></defaultselection>
+      <defaultvalue></defaultvalue>
+      <description></description>
+      <displayheight></displayheight>
+      <displaytype>NORMAL</displaytype>
+      <displaywidth></displaywidth>
+      <dynamicdefault></dynamicdefault>
+      <fieldtype>CLOBTEXT</fieldtype>
+      <help></help>
+      <isformula>F</isformula>
+      <ismandatory>F</ismandatory>
+      <label>ME - CR Parameter</label>
+      <linktext></linktext>
+      <maxlength></maxlength>
+      <maxvalue></maxvalue>
+      <minvalue></minvalue>
+      <onparentdelete></onparentdelete>
+      <searchlevel>2</searchlevel>
+      <selectrecordtype></selectrecordtype>
+      <setting></setting>
+      <storevalue>T</storevalue>
+    </scriptcustomfield>
+  </scriptcustomfields>
+  <scriptdeployments>
+    <scriptdeployment scriptid="customdeploy_me_ss_unrealized_cr">
+      <custscript_me_cr_parameter></custscript_me_cr_parameter>
+      <isdeployed>T</isdeployed>
+      <loglevel>DEBUG</loglevel>
+      <status>NOTSCHEDULED</status>
+      <title>ME - Unrealized CR</title>
+      <recurrence>
+        <single>
+          <repeat></repeat>
+          <startdate>2024-10-28</startdate>
+          <starttime>11:00:00Z</starttime>
+        </single>
+      </recurrence>
+    </scriptdeployment>
+    <scriptdeployment scriptid="customdeploy_me_testing_unrealized_deplo">
+      <custscript_me_cr_parameter></custscript_me_cr_parameter>
+      <isdeployed>T</isdeployed>
+      <loglevel>DEBUG</loglevel>
+      <status>NOTSCHEDULED</status>
+      <title>ME - Unrealized CR 2</title>
+      <recurrence>
+        <single>
+          <repeat></repeat>
+          <startdate>2024-10-29</startdate>
+          <starttime>11:00:00Z</starttime>
+        </single>
+      </recurrence>
+    </scriptdeployment>
+  </scriptdeployments>
+</scheduledscript>

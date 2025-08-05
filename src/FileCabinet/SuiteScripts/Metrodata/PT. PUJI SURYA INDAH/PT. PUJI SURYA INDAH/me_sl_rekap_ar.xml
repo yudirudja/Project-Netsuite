@@ -1,0 +1,394 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd"> 
+<pdf> 
+    <head> 
+        <#assign datenows = .now?date>
+        <#assign timenows = .now?time>
+        <link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" /> 
+        <style type="text/css">
+            body { 
+                size:A4; 
+                padding: 0px; 
+                <!-- background: #ABD7EB; -->
+                box-sizing: border-box
+
+            }
+            table {
+                font-family: sans-serif;
+                font-size: 9pt;
+                table-layout: fixed;
+            }
+            th {
+                font-weight: bold;
+                font-size: 7pt;
+                vertical-align: middle;
+                padding: 3px 4px 2px;
+                border-top: 1px solid gray;
+                border-bottom: 1px solid gray;
+                box-sizing :border-box
+            }
+            td {
+                padding: 3px 5px;
+                font-size: 7pt
+            }
+            td.addressheader {
+                font-size: 8pt;
+                padding-top: 6px;
+                padding-bottom: 2px;
+            }
+            td.total {
+                font-size: 7pt;
+                font-weight: bold;
+                border-top: 1px solid;
+                border-bottom: 1px solid
+            }
+            span.number {
+                font-size: 16pt;
+            }
+            p.header_coll{
+                font-size: 5pt;
+                padding: 0px;
+                margin: 0px
+            }
+            table.header {
+                width: 100%; 
+                margin-top: 5px;
+            }
+            table.datatable{
+                font-size:5pt;
+            }
+            th.header_coll {
+                font-size:6pt;
+                background: yellow
+            }
+            td.dataitem{
+                <!-- font-size: 6pt; -->
+                <!-- color: red; -->
+                font-weight: 2px,
+                margin: 0px
+            }
+            td.header_coll{
+                font-size: 6pt;
+                font-weight: bold;
+                <!-- background:wheat -->
+            }
+            td.data_coll{
+                font-size: 6pt;
+                <!-- background:pink -->
+            }
+            td.total_coll{
+                font-size: 6pt;
+                font-weight: bolder
+
+                <!-- background:pink -->
+            }
+            
+            p.data_coll{
+                font-size: 6pt;
+                margin: 0;
+                padding: 0
+            }
+            table.datacustomer{
+                margin-bottom:10px;
+            }
+        </style>
+         
+    </head> 
+    <body padding="0.3in 0.3in 0.3in 0.3in" size="A4"> 
+        <table class="header" width="100%">
+            <tr >
+                <td width="10%" >AR PSITG</td>
+                <td width="30%" >Date ${data.startdate} - ${data.enddate}</td>
+                <td width="30%" >${data.customer}</td>
+                <td width="30%" >${data.sales}</td>
+            </tr>
+        </table>
+
+
+        <table class= "datatable" width="100%">
+                <tr>
+                    <th class="header_coll" align="left" width="14%">TRX </th>
+                    <th class="header_coll" width="8%">Date</th> 
+                    <th class="header_coll" align="center" width="8%">Blc. Inv</th>
+                    <th class="header_coll" align="center" width="7%">Tunai</th>
+                    <th class="header_coll" align="center" width="8%">Cheque</th>
+                    <th class="header_coll" align="center" width="7%">Transfer</th>
+                    <th class="header_coll" align="center" width="7%">Return</th>
+                    <th class="header_coll" align="center" width="7%">Disc</th>
+                    <th class="header_coll" align="center" width="6%">Lain2</th>
+                    <th class="header_coll" align="left" width="7%">
+                        <p class='header_coll'>Koreksi+Rebate</p>
+                        <p class='header_coll'>ByTran</p>
+                        <p class='header_coll'>Materai</p>
+                    </th>
+                    <th class="header_coll" align="left" width="7%">
+                        <p class='header_coll'>Adjust</p>
+                        <p class='header_coll'>Susuk</p>
+                        <p class='header_coll'>Titip</p>
+                    </th>
+                    <th class="header_coll" align="center" width="7%">Ext/Int</th>
+                    <th class="header_coll" align="center" width="7%">Balance</th>
+                </tr>
+                <#list DATA.data_colls as salescoll>
+
+                    <#list salescoll.collection as coll>
+                        <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                            <td class="header_coll">${coll.coll_trandate}</td>
+                            <td class="header_coll">${coll.coll_tranid}</td>
+                            <td class="header_coll" colspan="2">${coll.coll_sales_name}</td>
+                            <td class="header_coll">${coll.coll_customer_code}</td>
+                            <td class="header_coll" colspan="3">${coll.coll_customer_name}</td>
+                        </tr>
+                        <#if coll.invoice?size != 0 >
+                            <#list coll.invoice as inv>
+                                <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                    <td class="data_coll"> ${inv.trx_tranid} </td>
+                                    <td class="data_coll"> ${inv.trx_trandate} </td>
+                                    <td class="data_coll"> ${inv.trx_amount?number?string[",##0"]} </td>
+                                    <td class="data_coll"> ${inv.cd_cash?number?string[",##0"]} </td>
+                                    <td class="data_coll"> ${inv.cd_check?number?string[",##0"]} </td>
+                                    
+                                    <td class="data_coll"> ${inv.cd_transfer?number?string[",##0"]} </td>
+                                    <td class="data_coll"> - </td>
+                                    <td class="data_coll"> - </td>
+                                    <td class="data_coll"> - </td>
+                                    <td class="data_coll"> - </td>
+                                    
+                                    <td class="data_coll"> - </td>
+                                    <td class="data_coll"> - </td>
+                                    <td class="data_coll"> ${inv.inv_final_balance?number?string[",##0"]} </td>
+
+                                </tr>
+                            </#list>
+                        </#if>
+
+                        <#if coll.cm_pindah_return?number gt 0 > 
+                            <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> ${coll.cm_pindah_return?number?string[",##0"]} </td>
+                                <td class="data_coll"> - </td>
+                                
+
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                            </tr>
+                        </#if>
+
+                        <#if coll.cm_rebate?number gt 0 >
+                            <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll">
+                                        <p class="data_coll"> Rebate </p>
+                                </td>
+                                <td class="data_coll">
+                                        <p class="data_coll"> ${coll.cm_rebate?number?string[",##0"]} </p>
+                                </td>
+
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                            </tr>
+                        </#if>
+
+                        <#if coll.cm_koreksi?number gt 0>
+                            <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll">
+                                        <p class="data_coll"> Koreksi </p>
+                                </td>
+                                <td class="data_coll">
+                                        <p class="data_coll"> ${coll.cm_koreksi?number?string[",##0"]} </p>
+                                </td>
+
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                            </tr>
+                        </#if>
+
+                        <#if (coll.cm_bytrf?number gt 0)>
+                            <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll">
+                                        <p class="data_coll"> ByTrf </p>
+                                </td>
+                                <td class="data_coll">
+                                        <p class="data_coll"> ${coll.cm_bytrf?number?string[",##0"]} </p>
+                                </td>
+
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                            </tr>
+                        </#if>
+
+                        <#if coll.cm_materai?number gt 0>
+                            <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll">
+                                        <p class="data_coll"> Materai </p>
+                                </td>
+                                <td class="data_coll">
+                                        <p class="data_coll"> ${coll.cm_materai?number?string[",##0"]} </p>
+                                </td>
+
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                            </tr>
+                        </#if>
+
+                        <#if coll.je_adjustment?number gt 0 ||  coll.je_susuk?number gt 0>
+                            <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+
+                                <td class="data_coll">  
+                                    <p>${coll.je_adjustment}</p>
+                                    <p>${coll.je_susuk}</p>
+                                </td>
+                                <td class="data_coll"> - </td>
+                                <td class="data_coll"> - </td>
+                            </tr>
+                        </#if>
+
+                        <!-- TOTAL PER COLLECTION START -->
+                        
+                        
+                        <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                <td class="total_coll"> Total </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> ${coll.total_invoice.invoice?number?string[",##0"]} </td>
+                                <td class="total_coll"> ${coll.total_invoice.cd_cash?number?string[",##0"]} </td>
+                                <td class="total_coll"> ${coll.total_invoice.cd_check?number?string[",##0"]} </td>
+
+                                <td class="total_coll"> ${coll.total_invoice.cd_transfer?number?string[",##0"]} </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> ${coll.total_invoice.cm_invoice?number?string[",##0"]} </td>
+
+                                <td class="total_coll"> ${coll.total_invoice.je_invoice?number?string[",##0"]} </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> - </td>
+                        </tr>
+                        <!-- TOTAL PER COLLECTION END -->
+
+                        <#if coll.cm_return?size != 0 >
+                            <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                <td class="header_coll">${coll.coll_trandate}</td>
+                                <td class="header_coll">${coll.coll_tranid}</td>
+                                <td class="header_coll" colspan="2">${coll.coll_sales_name}</td>
+                                <td class="header_coll">${coll.coll_customer_code}</td>
+                                <td class="header_coll" colspan="3">${coll.coll_customer_name}</td>
+                            </tr>
+                            <#list coll.cm_return as cm_ret>
+                                <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                    <td class="data_coll"> ${cm_ret.trx_tranid} </td>
+                                    <td class="data_coll"> ${cm_ret.trx_trandate} </td>
+                                    <td class="data_coll"> - </td>
+                                    <td class="data_coll"> - </td>
+                                    <td class="data_coll"> - </td>
+
+                                    <td class="data_coll"> - </td>
+                                    <td class="data_coll"> ${cm_ret.trx_amount?number?string[",##0"]} </td>
+                                    <td class="data_coll"> - </td>
+                                    <td class="data_coll"> - </td>
+                                    <td class="data_coll"> - </td>
+
+                                    <td class="data_coll"> - </td>
+                                    <td class="data_coll"> ${cm.je_extint?number?string[",##0"]} </td>
+                                    <td class="data_coll"> - </td>
+                                </tr>
+                            </#list>
+                            
+                        
+                            <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                <td class="total_coll"> Total </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> - </td>
+
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> ${coll.total_cm_return.cm_return?number?string[",##0"]} </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> - </td>
+
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> ${coll.total_cm_return.je_extint?number?string[",##0"]} </td>
+                                <td class="total_coll"> - </td>
+                            </tr>
+                        </#if>
+                    </#list>
+                    <tr style="background-color: ${((coll_index % 2)==0)?string('#ffffff', '#ccffcc')}">
+                                <td class="total_coll" colspan ="2"> Tot. Sales ${salescoll.sales_name} </td>
+                                
+                                <td class="total_coll"> ${salescoll.total_invoice.invoice?number?string[",##0"]} </td>
+                                <td class="total_coll"> ${salescoll.total_invoice.cd_cash?number?string[",##0"]} </td>
+                                <td class="total_coll"> ${salescoll.total_invoice.cd_check?number?string[",##0"]} </td>
+
+                                <td class="total_coll"> ${salescoll.total_invoice.cd_transfer?number?string[",##0"]} </td>
+                                <td class="total_coll"> ${salescoll.total_cm_return.cm_return?number?string[",##0"]} </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> ${salescoll.total_invoice.cm_invoice?number?string[",##0"]} </td>
+
+                                <td class="total_coll"> ${salescoll.total_invoice.je_invoice?number?string[",##0"]} </td>
+                                <td class="total_coll"> - </td>
+                                <td class="total_coll"> - </td>
+                    </tr>
+                </#list>
+        </table>
+    </body> 
+</pdf>

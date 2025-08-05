@@ -1,0 +1,256 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd"> 
+<pdf>
+    <head>
+        <#assign datenows = .now?date>
+        <#assign timenows = .now?time>
+        <link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+        <#if .locale == "zh_CN">
+            <link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+        <#elseif .locale == "zh_TW">
+            <link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+        <#elseif .locale == "ja_JP">
+            <link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+        <#elseif .locale == "ko_KR">
+            <link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+        <#elseif .locale == "th_TH">
+            <link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+        </#if>
+        <macrolist>
+            <macro id="nlheader">            
+
+            </macro>
+            <macro id="nlfooter">
+                <table class="footer" style="width: 100%;padding-top:-30px">
+                  <tr>
+                        <td align="left">
+                            <pagenumber/> of <totalpages/>
+                        </td>
+                  </tr>
+                </table>
+            </macro>
+        </macrolist>
+        <style type="text/css">* {
+            <#if .locale == "zh_CN">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "zh_TW">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "ja_JP">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "ko_KR">
+                font-family: Arial, sans-serif;
+            <#elseif .locale == "th_TH">
+                font-family: Arial, sans-serif;
+            <#else>
+                font-family: Arial, sans-serif;
+            </#if>
+            }
+            * {
+                font-size: 8px;
+                  color:black;
+            }
+            table {
+                font-size: 8px;
+                table-layout: fixed;
+              color:black;
+            }
+            .th {
+                font-weight: bold;
+                font-size: 8pt;
+                vertical-align: middle;
+                color: #333333;
+            }
+            td p { align:left;color:black; }
+            
+            table.header td {
+                padding: 0px;
+                font-size: 8px;
+              color:black;
+            }
+            table.header_border {
+                padding: 0px;
+                vertical-align: top;
+              color:black;
+            }
+            table.header tr:last-child{
+                page-break-after: auto;
+              color:black;
+            }
+
+            table.content .th {
+                border-top: 1px solid;
+                border-bottom: 1px solid;
+                border-left: 1px solid;
+                padding: 1px;
+              color:black;
+            }
+            <!-- table.content th:first-child {
+                border-left: none;
+  color:black;;
+            } -->
+            table.content td {
+                border-left: 1px solid;
+                page-break-inside: auto;
+                box-decoration-break: clone;
+              color:black;
+            }
+            <!-- table.content tr {
+                page-break-after: auto;
+              color:black;;
+            } -->
+            <!-- table.content td:first-child {
+                border-left: none;
+              color:black;
+            } -->
+
+            table.tandatangan tr:first-child{
+                page-break-after: avoid;
+                page-break-before: auto;
+              color:black;
+            }
+            table.tandatangan tr{
+                page-break-after: avoid;
+                page-break-before: avoid;
+              color:black;
+            }
+            table.tandatangan tr:last-child{
+                page-break-after: auto;
+                page-break-before: avoid;
+              color:black;
+            }
+            table.header_kop {
+                border-collapse: collapse;
+              color:black;
+            }
+            .white-char {
+                color: white;
+            }
+                
+        </style>
+    </head>
+    <body  padding="0.1in 0.5in 0in 0.5in"  size="Letter">
+
+            <table class="header" width="100%" padding-bottom="5px" >
+                <tr>
+                    <td width="15%" padding-top= "10px" rowspan="2" >
+                        <img src="https://td2995066.app.netsuite.com/core/media/media.nl?id=57182&amp;c=TD2995066&amp;h=f2ayqY9pZkGvHw5pSHr1MMpPYnHFaywnHhAA2mXbCF2IDyqh" style="width: 25%; height: 25%;"/>
+                    </td>
+                    <td width="65%" padding-top= "10px" rowspan="2" > 
+                        <p style="font-size:40px; font-weight:bold" align="center" valign="middle">BON BAHAN</p>
+                    </td>
+                    <td width="20%" padding-top= "10px" >
+                        <p style="font-size:12px;" align="left">No.BB: ${record.no_bb}</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td padding-top= "10px">
+                        <p style="font-size:12px;" align="left">Tanggal: ${record.date}</p>
+                    </td>
+                </tr>
+
+            </table>
+            <table class="header" width="100%" padding-bottom="5px" >
+                <tr>
+                    <td padding-top= "10px">
+                        <p style="font-size:12px;" align="left">Diminta oleh Divisi: ${record.class_}</p>
+                    </td>
+                    <td padding-top= "10px">
+                        <p style="font-size:12px;" align="left">Ke Gudang: ${record.to_location}</p>
+                    </td>
+                    <td padding-top= "10px">
+                        <p style="font-size:12px;" align="left">Ke Gudang: ${record.from_location}</p>
+                    </td>
+                </tr>
+
+            </table>
+
+            <table class="content" width="100%" style="border:none;">
+            
+            <thead>
+            <tr>
+                <td class="th" align="center" width="3%" style="border-left:1px;" rowspan = "2">No.</td>
+                <td class="th" align="center" width="21%" rowspan = "2">Kode Barang</td>
+                <td class="th" align="center" width="20%" rowspan="2">Uraian Barang</td>
+                <td class="th" align="center" width="8%" rowspan = "2">Warna</td>
+                <td class="th" align="center" width="8%" rowspan = "2">Satuan</td>
+                <td class="th" align="center" width="14%" colspan="2">Jumlah</td>
+                <td class="th" align="center" width="13%" rowspan = "2">Diterima</td>
+                <td class="th" align="center" style="border-right:1px" width="13%" rowspan = "2">Keterangan</td>
+            </tr>
+            <tr>
+                <td class="th" align="center">Minta</td>
+                <td class="th" align="center">Beri</td>
+            </tr>
+            </thead>
+
+            
+            <#list record.item as item>
+
+            <#if record.item?size-1 == item?index>    
+            <tr>
+                <td align="left" width="3%" style="border-left:1px;border-bottom:1px;">${item?index + 1}</td>
+                <td align="left" width="21%" style="border-bottom:1px;">${item.kode_barang_text}</td>
+                <td align="left" width="20%" style="border-bottom:1px;">${item.uraian_barang}</td>
+                <td align="left" width="8%" style="border-bottom:1px;">${item.warna}</td>
+                <td align="left" width="8%" style="border-bottom:1px;">${item.satuan}</td>
+                <td align="left" style="border-bottom:1px;">${item.jumlah_minta}</td>
+                <td align="left" style="border-bottom:1px;">${item.jumlah_beri}</td>
+                <td align="left" width="13%" style="border-bottom:1px;">${item.diterima}</td>
+                <td align="left" style="border-right:1px;border-bottom:1px" width="13%" >${item.keterangan}</td>
+            </tr>
+            <#else>
+            <tr>
+                <td align="left" width="3%" style="border-left:1px;">${item?index + 1}</td>
+                <td align="left" width="21%" >${item.kode_barang_text}</td>
+                <td align="left" width="20%">${item.uraian_barang}</td>
+                <td align="left" width="8%" >${item.warna}</td>
+                <td align="left" width="8%" >${item.satuan}</td>
+                <td align="left" >${item.jumlah_minta}</td>
+                <td align="left" >${item.jumlah_beri}</td>
+                <td align="left" width="13%" >${item.diterima}</td>
+                <td align="left" style="border-right:1px" width="13%" >${item.keterangan}</td>
+            </tr>
+            </#if>
+            </#list>
+            
+
+            </table>
+
+                <table style="border:none" width="100%"> 
+
+                <tr>
+                    <td width="33%" padding-bottom= "15px" style="border:none">
+                        APK
+                    </td>
+                    <td width="33%" padding-bottom= "15px" style="border:none">
+                        Penerima
+                    </td>
+                    <td width="33%" padding-bottom= "15px" style="border:none">
+                        Gudang
+                    </td>
+                    <td width="33%" padding-bottom= "15px" style="border:none">
+                        PPC
+                    </td>
+                </tr>
+                <tr>
+                    <td width="33%" style="border:none">
+                        ${record.apk}
+                    </td>
+                    <td width="33%" style="border:none">
+                        ${record.penerima}
+                    </td>
+                    <td width="33%" style="border:none">
+                        ${record.gudang}
+                    </td>
+                    <td width="33%" style="border:none">
+                        ${record.ppc}
+                    </td>
+                </tr>
+
+                </table>
+            
+
+
+
+    </body> 
+</pdf>

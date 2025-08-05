@@ -1,0 +1,218 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+<head>
+	<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+	<#if .locale == "zh_CN">
+		<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+	<#elseif .locale == "zh_TW">
+		<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+	<#elseif .locale == "ja_JP">
+		<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+	<#elseif .locale == "ko_KR">
+		<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+	<#elseif .locale == "th_TH">
+		<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+	</#if>
+
+   <macrolist>
+      <macro id='footer'>
+	  <table class="content-footer">
+		<tr>
+		<td class="column-content" style='heigth:50px;padding-top: 20px; aligh:right' colspan='1'> </td>
+		<td class="column-content" style='heigth:50px;padding-top: 20px; aligh:right' colspan='1'> </td>
+		<td class="column-content" style='heigth:50px;align:center;padding-top: 50px;padding-bottom: 5px;' colspan='2'><span style="text-align: top;padding-bottom: 15px; font-size:12px"><b>PT. TEMBAGA MULIA SEMANAN TBK</b></span></td>
+		</tr>
+		<tr>
+		<td class="column-content" style='heigth:50px;padding-top: 20px; aligh:right' colspan='1'> </td>
+		<td class="column-content" style='heigth:50px;padding-top: 20px; aligh:right' colspan='1'> </td>
+    <#if Record.data.copper_or_alu == 'copper'>
+		<td class="column-content" style='heigth:50px;align:center' colspan='2'><img src='https://9089437-sb1.app.netsuite.com/core/media/media.nl?id=3571&c=9089437_SB1&h=VadrLLy5p0y0KkDPFPxc3bVZm7vGzvZ7p7P_7ZQsZeMlvy55' style="width: 150px; height: 100px;padding-top: 5px;" /><br/><span style="margin-bottom: 20px;">(____________________________)</span></td>
+    </#if>
+    <#if Record.data.copper_or_alu == 'alumunium'>
+		<td class="column-content" style='heigth:50px;align:center' colspan='2'><img src='https://9089437-sb1.app.netsuite.com/core/media/media.nl?id=3572&c=9089437_SB1&h=1GFTbuiFfmzRhsWIoowh01pn23r27V5Z8v8XFezMkhtOS0VJ' style="width: 150px; height: 100px;padding-top: 5px;" /><br/><span style="margin-bottom: 20px;">(____________________________)</span></td>
+    </#if>
+
+		</tr>
+	</table>
+      </macro>
+    </macrolist>
+
+    <style type="text/css">* {
+						<#if .locale == "zh_CN">
+							font-family: NotoSans, NotoSansCJKsc, sans-serif;
+						<#elseif .locale == "zh_TW">
+							font-family: NotoSans, NotoSansCJKtc, sans-serif;
+						<#elseif .locale == "ja_JP">
+							font-family: NotoSans, NotoSansCJKjp, sans-serif;
+						<#elseif .locale == "ko_KR">
+							font-family: NotoSans, NotoSansCJKkr, sans-serif;
+						<#elseif .locale == "th_TH">
+							font-family: NotoSans, NotoSansThai, sans-serif;
+						<#else>
+							font-family: NotoSans, sans-serif;
+						</#if>
+					}
+					td p { align:left }
+					td img { align:right }
+
+      .content{
+        margin-top: 1px;
+		width: 100%;
+      }
+      .content-footer{
+        margin-top: 1px;
+		width: 100%;
+      }
+      .row_border{
+        border-bottom:1px;
+      }
+      thead{
+        border-bottom:1px;
+        <!-- border-top:1px; -->
+      }
+      h3{
+        font-style: none;
+      }
+      .title-header{
+        font-size: 12px;
+		font-family: Segoe UI;
+      }
+      .text-header{
+        font-size: 12px;
+        width: 30%;
+		font-family: Segoe UI;
+      }
+      .column-head{
+        font-size: 12px;
+        font-weight: bold;
+        width: 30%;
+		font-family: Segoe UI;
+      }
+      .column-content{
+        font-size:12px;
+        width: 30%;
+		font-family: Segoe UI;
+      }
+      .padding-left-3{
+       	padding-left: 25px;
+	  }
+      .column-content-header{
+		font-size: 12px;
+       	width: 30%;
+		font-family: Segoe UI;
+	  }
+</style>
+
+</head>
+
+<body padding="0.3in 0.5in 0.3in 0.5in" size="a4" footer="footer" footer-height="200px">
+
+    <table class="content">
+	
+<thead>
+	<tr>
+      <td style='width:10%;margin-right: -70px;' colspan = '1'> <img src='https://9089437-sb1.app.netsuite.com/core/media/media.nl?id=3542&c=9089437_SB1&h=05VK7DXUchhZ397EgSv2IwWy7XNdZAbS8X8NO_f9zmwSqaZ6' style="width: 91px; height: 39px;padding-top: 5px;padding-right: 65px;" /> </td>
+      <td  colspan = '3' style = 'margin-left: 15px;width:80%;'>  <p><b style = 'font-weight: bold;font-size: 15px;color:white'>PT. TEMBAGA MULIA SEMANAN Tbk.</b><br/> <span style = 'font-size: 11px;color: white;'>Office/Factory: KM. 16 Jl: Daan Mogot, Semanan, Kaliederes <br/>Jakarta Barat 11850 - Indonesia <br/> Phone: +6221-6190128(Hunting) Fax: +62216190135</span></p><br/> </td>
+    </tr>
+    <tr class = "row_border">
+      <td class="column-content-header"> Invoice No.: ${Record.data.tran_id}</td>
+      <td class="column-content-header"> </td>
+      <td class="column-content-header"> </td>
+      <td class="column-content-header"> </td>
+    </tr>
+    <tr >
+      <td class="column-content-header"> Date </td>
+      <td class="column-content-header"> </td>
+      <td class="column-content-header"> </td>
+      <td class="column-content-header"> Order/Contract No </td>
+    </tr>
+    <tr class = "row_border">
+      <td class="column-content-header"> ${Record.data.tran_date} </td>
+      <td class="column-content-header"> </td>
+      <td class="column-content-header"> </td>
+      <td class="column-content-header"> ${Record.data.po_number} </td>
+    </tr>
+    <tr > 
+      <td class="column-content-header"> For Account of: </td>
+	    <td class="column-content-header"> </td>
+      <td class="column-content-header" colspan = '2' style='border-left:1px;'> Method Of Payment:<br/>${Record.data.terms}</td>
+    </tr>
+    <tr class = "row_border">
+      <td class="column-content-header"> ${Record.data.line_address} </td>
+	    <td class="column-content-header"> </td>
+      <td class="column-content-header" colspan = '2'  style='border-left:1px;'> ${Record.data.bank_invoice}<br/> ${Record.data.bank_invoice_address}<br/><br/><#if Record.data.is_show_due_date == 'true'>Due Date: ${Record.data.due_date}</#if></td>
+    </tr>
+    <tr >
+      <td class="column-content-header"> Shipped Per: </td>
+	    <td class="column-content-header"> </td>
+      <td class="column-content-header" colspan = '2' > On or About: </td>
+    </tr>
+    <tr class = "row_border">
+      <td class="column-content-header"> ${Record.data.vessel_name} </td>
+	    <td class="column-content-header"> </td>
+      <td class="column-content-header" colspan = '2' > ${Record.data.on_or_about}</td>
+    </tr>
+    <tr >
+      <td class="column-content-header"> From: </td>
+	    <td class="column-content-header"> </td>
+      <td class="column-content-header" colspan = '2' > To: </td>
+    </tr>
+    <tr class = "row_border">
+      <td class="column-content-header"> ${Record.data.location_from} </td>
+	    <td class="column-content-header"> </td>
+      <td class="column-content-header" colspan = '2' > ${Record.data.location_to}</td>
+    </tr>
+    <tr >
+      <td class="column-content-header" style='color:white;'> /////////// </td>
+	    <td class="column-content-header" style='color:white;'> </td>
+      <td class="column-content-header" colspan = '2' style='color:white;'> ///////////</td>
+    </tr>
+    <tr >
+      <td class="column-content-header" style='color:white;'> /////////// </td>
+	    <td class="column-content-header" style='color:white;'> </td>
+      <td class="column-content-header" colspan = '2' style='color:white;'> ///////////</td>
+    </tr>
+    <tr class = "row_border">
+      <td class="column-content-header" style='color:white;'> /////////// </td>
+	    <td class="column-content-header" style='color:white;'> </td>
+      <td class="column-content-header" colspan = '2' style='color:white;'> ///////////</td>
+    </tr>
+	<!-- <tr>
+	<td align = "left" colspan = "5" style="width: 19px; height: 20px; font-family: NotoSans, NotoSansThai, sans-serif; font-size: 6pt; border-bottom: 1px">Print: ${.now?date?string['dd MMMM YYYY']},${.now?time?string['HH:mm:ss']}</td>  
+	<td align = "right" colspan = "23" style="width: 19px; height: 20px; font-family: sans-serif; font-size: 7pt; border-bottom: 1px"><strong><pagenumber/> of <totalpages/></strong></td>
+	</tr> -->
+	<tr>
+	<td class="column-head">Description</td>
+	<td class="column-head">Quantity</td>
+	<td class="column-head">Unit Price</td>
+	<td class="column-head">Amount</td>
+	</tr>
+</thead>
+
+<#list Record.data.line as data>
+	<tr>
+	<td class="column-content">${data.item_name}<br/>${data.item_memo}</td>
+	<td class="column-content">${data.quantity}</td>
+	<td class="column-content">${data.currency} ${data.unit_price}</td>
+	<td class="column-content">${data.currency} ${data.amount}</td>
+	</tr>
+</#list>
+
+	<tr>
+	<td class="column-content" style='border-top:1px;'></td>
+	<td class="column-content" style='border-top:1px;'></td>
+	<td class="column-content" style='border-top:1px;'>Total</td>
+	<td class="column-content" style='border-top:1px;'>${Record.data.total_amount}</td>
+	</tr>
+
+	<tr>
+	<td class="column-content" colspan='1' style='border-top:1px;'><br/> ${Record.data.remarks}</td>
+	<td class="column-content" colspan='2' style='color:white;border-top:1px;'>test</td>
+	<td class="column-content" colspan='1' style='border-top:1px;'><br/>${Record.data.incoterms}</td>
+	</tr>
+</table>
+<!-- <footer style = 'text-align: right;'>
+  <p style = 'margin-botom: 0px; font-weight: bold;'>PT. Tembaga Mulia Semanan</p>
+</footer> -->
+</body>
+</pdf>
